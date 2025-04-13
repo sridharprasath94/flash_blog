@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    await DesktopWindow.setMinWindowSize(const Size(900, 500));
-    await DesktopWindow.setMaxWindowSize(const Size(900, 500));
+    await DesktopWindow.setMinWindowSize(const Size(400, 800));
+    await DesktopWindow.setMaxWindowSize(const Size(400, 800));
   }
   runApp(const MyApp());
 }
