@@ -1,8 +1,16 @@
+import 'dart:io';
+
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flash_blog/core/theme/theme.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    await DesktopWindow.setMinWindowSize(const Size(900, 500));
+    await DesktopWindow.setMaxWindowSize(const Size(900, 500));
+  }
   runApp(const MyApp());
 }
 
