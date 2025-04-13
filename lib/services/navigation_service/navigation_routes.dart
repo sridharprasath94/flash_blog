@@ -43,6 +43,7 @@ class LoginRoute extends GoRouteData {
                 navigationService: ref.watch(goRouterNavigationServiceProvider),
               );
           return LoginView(
+            formKey: GlobalKey<FormState>(),
             controller: ref.read(loginControllerImplProvider.notifier),
             model: ref.watch(loginControllerImplProvider),
           );

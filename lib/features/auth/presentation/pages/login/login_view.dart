@@ -15,10 +15,14 @@ abstract class LoginController {
 class LoginView extends StatelessWidget {
   final LoginController controller;
   final LoginModel model;
+  final GlobalKey<FormState> formKey;
 
-  LoginView({super.key, required this.controller, required this.model});
-
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  const LoginView({
+    super.key,
+    required this.formKey,
+    required this.controller,
+    required this.model,
+  });
 
   @override
   Widget build(final BuildContext context) => Scaffold(

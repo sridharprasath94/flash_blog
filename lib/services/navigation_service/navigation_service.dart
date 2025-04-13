@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flash_blog/features/auth/presentation/pages/login/login_navigation_service.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_navigation_service.dart';
 import 'package:flash_blog/services/navigation_service/navigation_routes.dart';
@@ -32,11 +34,11 @@ class NavigationService  implements LoginNavigationService, SignupNavigationServ
 
   @override
   void navigateToSignUpView() {
-    goRouter.go(signUpRoute);
+    unawaited(goRouter.push(signUpRoute));
   }
 
   @override
   void navigateToSignInView() {
-    goRouter.go(loginRoute);
+    unawaited(goRouter.push(loginRoute));
   }
 }
