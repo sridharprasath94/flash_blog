@@ -1,5 +1,6 @@
 import 'package:flash_blog/features/auth/presentation/pages/login/login_navigation_service.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_navigation_service.dart';
+import 'package:flash_blog/services/navigation_service/navigation_routes.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,12 +27,16 @@ class NavigationService  implements LoginNavigationService, SignupNavigationServ
   final GoRouter goRouter;
 
   @override
-  void goBack() {
-    // TODO: implement goBack
-  }
+  void goBack() =>
+      goRouter.canPop() ? goRouter.pop() : goRouter.go(loginRoute);
 
   @override
   void navigateToSignUpView() {
-    // TODO: implement navigateToSignUpView
+    goRouter.go(signUpRoute);
+  }
+
+  @override
+  void navigateToSignInView() {
+    goRouter.go(loginRoute);
   }
 }

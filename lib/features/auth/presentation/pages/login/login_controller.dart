@@ -39,6 +39,11 @@ class LoginControllerImpl extends _$LoginControllerImpl
   }
 
   @override
+  void tapSignUpText() {
+    navigationService.navigateToSignUpView();
+  }
+
+  @override
   void tapSignInButton() {
     // TODO: implement tapSignInButton
   }

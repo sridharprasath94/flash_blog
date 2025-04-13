@@ -20,21 +20,26 @@ class SignupControllerImpl extends _$SignupControllerImpl
     return SignupModel(
       isLoading: false,
       emailController: TextEditingController(),
-      passwordController: TextEditingController(), usernameController: TextEditingController(),
+      usernameController: TextEditingController(),
+      passwordController: TextEditingController(),
     );
   }
 
-  void init() {
-
-  }
+  void init() {}
 
   void dispose() {
     state.emailController.dispose();
+    state.usernameController.dispose();
     state.passwordController.dispose();
   }
 
   @override
   void tapBackButton() {
     // TODO: implement tapBackButton
+  }
+
+  @override
+  void tapSignInText() {
+    navigationService.navigateToSignInView();
   }
 }

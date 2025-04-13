@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 abstract class LoginController {
   void tapBackButton();
 
+  void tapSignUpText();
+
   void tapSignInButton();
 }
 
@@ -42,19 +44,22 @@ class LoginView extends StatelessWidget {
             const SizedBox(height: 20),
             const AuthGradientButton(buttonText: 'Sign In'),
             const SizedBox(height: 20),
-            RichText(
-              text: TextSpan(
-                text: "Don't have an account? ",
-                style: Theme.of(context).textTheme.titleMedium,
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Sign In',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: AppPalette.gradient2,
-                      fontWeight: FontWeight.bold,
+            GestureDetector(
+              onTap: controller.tapSignUpText,
+              child: RichText(
+                text: TextSpan(
+                  text: "Don't have an account? ",
+                  style: Theme.of(context).textTheme.titleMedium,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Sign Up',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppPalette.gradient2,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

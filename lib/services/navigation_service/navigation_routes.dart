@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 
 part '../../generated/services/navigation_service/navigation_routes.g.dart';
 
-const String initialLocation = signUpRoute;
+const String initialLocation = loginRoute;
 const String signUpRoute = '/signup';
 const String loginRoute = '/login';
 
