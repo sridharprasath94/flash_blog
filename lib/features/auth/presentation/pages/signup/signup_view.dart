@@ -1,32 +1,29 @@
 import 'package:flash_blog/core/theme/app_palette.dart';
+import 'package:flash_blog/features/auth/presentation/pages/signup/signup_model.dart';
 import 'package:flash_blog/features/auth/presentation/widgets/auth_field.dart';
 import 'package:flash_blog/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter/material.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
-
-  @override
-  State<SignupPage> createState() => _SignupPageState();
+abstract class SignupController {
+  void tapBackButton();
 }
 
-class _SignupPageState extends State<SignupPage> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
+class SignupView extends StatelessWidget {
+  final SignupController controller;
+  final SignupModel model;
+  final GlobalKey<FormState> formKey;
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    nameController.dispose();
-    super.dispose();
-  }
+  const SignupView({
+    super.key,
+    required this.formKey,
+    required this.controller,
+    required this.model,
+  });
 
   @override
   Widget build(final BuildContext context) {
-    // formKey.currentState?.validate();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -40,13 +37,17 @@ class _SignupPageState extends State<SignupPage> {
                 style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
-              AuthField(hintText: 'Email', controller: emailController),
+              AuthField(hintText: 'Email', controller: model.emailController),
               const SizedBox(height: 15),
-              AuthField(hintText: 'Name', controller: nameController),
+              AuthField(hintText: 'Name', controller: model.usernameController),
               const SizedBox(height: 15),
-              AuthField(hintText: 'Password', controller: passwordController, isObscureText: true,),
+              AuthField(
+                hintText: 'Password',
+                controller: model.passwordController,
+                isObscureText: true,
+              ),
               const SizedBox(height: 20),
-              const AuthGradientButton(buttonText: 'Sign Up',),
+              const AuthGradientButton(buttonText: 'Sign Up'),
               const SizedBox(height: 20),
               RichText(
                 text: TextSpan(
