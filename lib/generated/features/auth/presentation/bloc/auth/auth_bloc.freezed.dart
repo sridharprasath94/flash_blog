@@ -245,8 +245,8 @@ $AuthStateCopyWith(AuthState _, $Res Function(AuthState) __);
 /// @nodoc
 
 
-class _Initial implements AuthState {
-  const _Initial();
+class Initial implements AuthState {
+  const Initial();
   
 
 
@@ -256,7 +256,7 @@ class _Initial implements AuthState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
 }
 
 
@@ -277,8 +277,8 @@ String toString() {
 /// @nodoc
 
 
-class _Loading implements AuthState {
-  const _Loading();
+class Loading implements AuthState {
+  const Loading();
   
 
 
@@ -288,7 +288,7 @@ class _Loading implements AuthState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loading);
 }
 
 
@@ -309,83 +309,74 @@ String toString() {
 /// @nodoc
 
 
-class _Success implements AuthState {
-  const _Success(this.userModel);
+class Success implements AuthState {
+  const Success(this.user);
   
 
- final  UserModel userModel;
+ final  User user;
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(this, _$identity);
+$SuccessCopyWith<Success> get copyWith => _$SuccessCopyWithImpl<Success>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.userModel, userModel) || other.userModel == userModel));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&(identical(other.user, user) || other.user == user));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,userModel);
+int get hashCode => Object.hash(runtimeType,user);
 
 @override
 String toString() {
-  return 'AuthState.success(userModel: $userModel)';
+  return 'AuthState.success(user: $user)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$SuccessCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
-  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
+abstract mixin class $SuccessCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+  factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
- UserModel userModel
+ User user
 });
 
 
-$UserModelCopyWith<$Res> get userModel;
+
 
 }
 /// @nodoc
-class __$SuccessCopyWithImpl<$Res>
-    implements _$SuccessCopyWith<$Res> {
-  __$SuccessCopyWithImpl(this._self, this._then);
+class _$SuccessCopyWithImpl<$Res>
+    implements $SuccessCopyWith<$Res> {
+  _$SuccessCopyWithImpl(this._self, this._then);
 
-  final _Success _self;
-  final $Res Function(_Success) _then;
+  final Success _self;
+  final $Res Function(Success) _then;
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? userModel = null,}) {
-  return _then(_Success(
-null == userModel ? _self.userModel : userModel // ignore: cast_nullable_to_non_nullable
-as UserModel,
+@pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
+  return _then(Success(
+null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as User,
   ));
 }
 
-/// Create a copy of AuthState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$UserModelCopyWith<$Res> get userModel {
-  
-  return $UserModelCopyWith<$Res>(_self.userModel, (value) {
-    return _then(_self.copyWith(userModel: value));
-  });
-}
+
 }
 
 /// @nodoc
 
 
-class _Failure implements AuthState {
-  const _Failure(this.message);
+class Failure implements AuthState {
+  const Failure(this.message);
   
 
  final  String message;
@@ -394,13 +385,13 @@ class _Failure implements AuthState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$FailureCopyWith<_Failure> get copyWith => __$FailureCopyWithImpl<_Failure>(this, _$identity);
+$FailureCopyWith<Failure> get copyWith => _$FailureCopyWithImpl<Failure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Failure&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Failure&&(identical(other.message, message) || other.message == message));
 }
 
 
@@ -416,8 +407,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$FailureCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
-  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) = __$FailureCopyWithImpl;
+abstract mixin class $FailureCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+  factory $FailureCopyWith(Failure value, $Res Function(Failure) _then) = _$FailureCopyWithImpl;
 @useResult
 $Res call({
  String message
@@ -428,17 +419,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$FailureCopyWithImpl<$Res>
-    implements _$FailureCopyWith<$Res> {
-  __$FailureCopyWithImpl(this._self, this._then);
+class _$FailureCopyWithImpl<$Res>
+    implements $FailureCopyWith<$Res> {
+  _$FailureCopyWithImpl(this._self, this._then);
 
-  final _Failure _self;
-  final $Res Function(_Failure) _then;
+  final Failure _self;
+  final $Res Function(Failure) _then;
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
-  return _then(_Failure(
+  return _then(Failure(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));
