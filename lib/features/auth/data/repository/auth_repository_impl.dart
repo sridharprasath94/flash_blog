@@ -12,9 +12,13 @@ class AuthRepositoryImpl implements AuthRepository {
   TaskEither<Failure, String> signInWithEmailAndPassword({
     required final String email,
     required final String password,
-  }) => authRemoteDataSource
-      .signInWithEmailAndPassword(email: email, password: password)
-      .mapLeft((final Exception error) => Failure(error.toString()));
+  }) => TaskEither<Failure, String>.tryCatch(
+    () async => authRemoteDataSource.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    ),
+    (final Object error, _) => Failure(error.toString()),
+  );
 
   @override
   Future<void> signOut() {
@@ -27,11 +31,12 @@ class AuthRepositoryImpl implements AuthRepository {
     required final String username,
     required final String email,
     required final String password,
-  }) => authRemoteDataSource
-      .signUpWithEmailAndPassword(
-        email: email,
-        password: password,
-        username: username,
-      )
-      .mapLeft((final Exception error) => Failure(error.toString()));
+  }) => TaskEither<Failure, String>.tryCatch(
+    () async => authRemoteDataSource.signUpWithEmailAndPassword(
+      username: username,
+      email: email,
+      password: password,
+    ),
+    (final Object error, _) => Failure(error.toString()),
+  );
 }

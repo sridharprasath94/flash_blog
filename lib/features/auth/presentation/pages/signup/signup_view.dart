@@ -3,11 +3,14 @@ import 'package:flash_blog/features/auth/presentation/pages/signup/signup_model.
 import 'package:flash_blog/features/auth/presentation/widgets/auth_field.dart';
 import 'package:flash_blog/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 
 abstract class SignupController {
   void tapBackButton();
 
   void tapSignInText();
+
+  void tapSignUpButton();
 }
 
 class SignupView extends StatelessWidget {
@@ -47,7 +50,19 @@ class SignupView extends StatelessWidget {
               isObscureText: true,
             ),
             const SizedBox(height: 20),
-            const AuthGradientButton(buttonText: 'Sign Up'),
+            AuthGradientButton(
+              buttonText: 'Sign Up',
+              onPressed: () {
+                controller.tapSignUpButton();
+                // optionOf(formKey.currentState).fold(
+                //   () => debugPrint('Form is not valid'),
+                //   (final FormState formState) =>
+                //       formState.validate()
+                //           ? controller.tapSignUpButton()
+                //           : debugPrint('Form is invalid'),
+                // );
+              },
+            ),
             const SizedBox(height: 20),
             GestureDetector(
               onTap: controller.tapSignInText,

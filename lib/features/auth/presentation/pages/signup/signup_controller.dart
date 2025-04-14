@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_model.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_navigation_service.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_view.dart';
@@ -14,6 +15,7 @@ class SignupControllerImpl extends _$SignupControllerImpl
   @override
   SignupModel build({
     required final SignupNavigationService navigationService,
+    required final AuthBloc authBloc,
   }) {
     scheduleMicrotask(init);
     ref.onDispose(dispose);
@@ -41,5 +43,17 @@ class SignupControllerImpl extends _$SignupControllerImpl
   @override
   void tapSignInText() {
     navigationService.navigateToSignInView();
+  }
+
+  @override
+  void tapSignUpButton() {
+    debugPrint('Sign up button tapped');
+    authBloc.add(
+      AuthEvent.signup(
+        email: state.emailController.text.trim(),
+        username: state.usernameController.text.trim(),
+        password: state.passwordController.text.trim(),
+      ),
+    );
   }
 }

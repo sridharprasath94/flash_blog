@@ -46,7 +46,7 @@ class LoginView extends StatelessWidget {
               isObscureText: true,
             ),
             const SizedBox(height: 20),
-            const AuthGradientButton(buttonText: 'Sign In'),
+            AuthGradientButton(buttonText: 'Sign In', onPressed: controller.tapSignInButton),
             const SizedBox(height: 20),
             GestureDetector(
               onTap: controller.tapSignUpText,

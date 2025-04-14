@@ -1,9 +1,11 @@
+import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_controller.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_view.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_controller.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_view.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,6 +24,7 @@ class SignUpRoute extends GoRouteData {
           final SignupControllerImplProvider signupControllerImplProvider =
               SignupControllerImplProvider(
                 navigationService: ref.watch(goRouterNavigationServiceProvider),
+                authBloc: context.read<AuthBloc>(),
               );
           return SignupView(
             formKey: GlobalKey<FormState>(),

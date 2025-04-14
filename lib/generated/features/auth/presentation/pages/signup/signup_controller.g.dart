@@ -7,7 +7,7 @@ part of '../../../../../../features/auth/presentation/pages/signup/signup_contro
 // **************************************************************************
 
 String _$signupControllerImplHash() =>
-    r'34870ab06dcf6c6e67a5707ac74b2c1210d120a2';
+    r'b10aee4ee28259a06cd61c4c408541d7dfb56aea';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,8 +33,12 @@ class _SystemHash {
 abstract class _$SignupControllerImpl
     extends BuildlessAutoDisposeNotifier<SignupModel> {
   late final SignupNavigationService navigationService;
+  late final AuthBloc authBloc;
 
-  SignupModel build({required SignupNavigationService navigationService});
+  SignupModel build({
+    required SignupNavigationService navigationService,
+    required AuthBloc authBloc,
+  });
 }
 
 /// See also [SignupControllerImpl].
@@ -49,15 +53,22 @@ class SignupControllerImplFamily extends Family<SignupModel> {
   /// See also [SignupControllerImpl].
   SignupControllerImplProvider call({
     required SignupNavigationService navigationService,
+    required AuthBloc authBloc,
   }) {
-    return SignupControllerImplProvider(navigationService: navigationService);
+    return SignupControllerImplProvider(
+      navigationService: navigationService,
+      authBloc: authBloc,
+    );
   }
 
   @override
   SignupControllerImplProvider getProviderOverride(
     covariant SignupControllerImplProvider provider,
   ) {
-    return call(navigationService: provider.navigationService);
+    return call(
+      navigationService: provider.navigationService,
+      authBloc: provider.authBloc,
+    );
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -81,8 +92,12 @@ class SignupControllerImplProvider
   /// See also [SignupControllerImpl].
   SignupControllerImplProvider({
     required SignupNavigationService navigationService,
+    required AuthBloc authBloc,
   }) : this._internal(
-         () => SignupControllerImpl()..navigationService = navigationService,
+         () =>
+             SignupControllerImpl()
+               ..navigationService = navigationService
+               ..authBloc = authBloc,
          from: signupControllerImplProvider,
          name: r'signupControllerImplProvider',
          debugGetCreateSourceHash:
@@ -93,6 +108,7 @@ class SignupControllerImplProvider
          allTransitiveDependencies:
              SignupControllerImplFamily._allTransitiveDependencies,
          navigationService: navigationService,
+         authBloc: authBloc,
        );
 
   SignupControllerImplProvider._internal(
@@ -103,13 +119,18 @@ class SignupControllerImplProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.navigationService,
+    required this.authBloc,
   }) : super.internal();
 
   final SignupNavigationService navigationService;
+  final AuthBloc authBloc;
 
   @override
   SignupModel runNotifierBuild(covariant SignupControllerImpl notifier) {
-    return notifier.build(navigationService: navigationService);
+    return notifier.build(
+      navigationService: navigationService,
+      authBloc: authBloc,
+    );
   }
 
   @override
@@ -117,13 +138,17 @@ class SignupControllerImplProvider
     return ProviderOverride(
       origin: this,
       override: SignupControllerImplProvider._internal(
-        () => create()..navigationService = navigationService,
+        () =>
+            create()
+              ..navigationService = navigationService
+              ..authBloc = authBloc,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         navigationService: navigationService,
+        authBloc: authBloc,
       ),
     );
   }
@@ -137,13 +162,15 @@ class SignupControllerImplProvider
   @override
   bool operator ==(Object other) {
     return other is SignupControllerImplProvider &&
-        other.navigationService == navigationService;
+        other.navigationService == navigationService &&
+        other.authBloc == authBloc;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
+    hash = _SystemHash.combine(hash, authBloc.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -154,6 +181,9 @@ class SignupControllerImplProvider
 mixin SignupControllerImplRef on AutoDisposeNotifierProviderRef<SignupModel> {
   /// The parameter `navigationService` of this provider.
   SignupNavigationService get navigationService;
+
+  /// The parameter `authBloc` of this provider.
+  AuthBloc get authBloc;
 }
 
 class _SignupControllerImplProviderElement
@@ -165,6 +195,8 @@ class _SignupControllerImplProviderElement
   @override
   SignupNavigationService get navigationService =>
       (origin as SignupControllerImplProvider).navigationService;
+  @override
+  AuthBloc get authBloc => (origin as SignupControllerImplProvider).authBloc;
 }
 
 // ignore_for_file: type=lint

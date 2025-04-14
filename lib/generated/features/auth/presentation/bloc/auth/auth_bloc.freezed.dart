@@ -310,10 +310,10 @@ String toString() {
 
 
 class _Success implements AuthState {
-  const _Success(this.user);
+  const _Success(this.userId);
   
 
- final  String user;
+ final  String userId;
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
@@ -325,16 +325,16 @@ _$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.userId, userId) || other.userId == userId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,user);
+int get hashCode => Object.hash(runtimeType,userId);
 
 @override
 String toString() {
-  return 'AuthState.success(user: $user)';
+  return 'AuthState.success(userId: $userId)';
 }
 
 
@@ -345,7 +345,7 @@ abstract mixin class _$SuccessCopyWith<$Res> implements $AuthStateCopyWith<$Res>
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
 @useResult
 $Res call({
- String user
+ String userId
 });
 
 
@@ -362,9 +362,9 @@ class __$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? userId = null,}) {
   return _then(_Success(
-null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
