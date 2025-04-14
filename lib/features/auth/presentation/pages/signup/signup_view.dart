@@ -53,14 +53,13 @@ class SignupView extends StatelessWidget {
             AuthGradientButton(
               buttonText: 'Sign Up',
               onPressed: () {
-                controller.tapSignUpButton();
-                // optionOf(formKey.currentState).fold(
-                //   () => debugPrint('Form is not valid'),
-                //   (final FormState formState) =>
-                //       formState.validate()
-                //           ? controller.tapSignUpButton()
-                //           : debugPrint('Form is invalid'),
-                // );
+                optionOf(formKey.currentState).fold(
+                  () => debugPrint('Form is not valid'),
+                  (final FormState formState) =>
+                      formState.validate()
+                          ? controller.tapSignUpButton()
+                          : debugPrint('Form is invalid'),
+                );
               },
             ),
             const SizedBox(height: 20),

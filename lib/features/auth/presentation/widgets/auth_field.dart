@@ -15,6 +15,7 @@ class AuthField extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => TextFormField(
+    controller: controller,
     decoration: InputDecoration(hintText: hintText),
     validator:
         (final String? value) => optionOf(value).fold(
