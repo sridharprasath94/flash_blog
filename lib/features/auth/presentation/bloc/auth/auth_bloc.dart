@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'package:flash_blog/core/common/cubits/app_user_cubit.dart';
+import 'package:flash_blog/core/common/entities/user.dart';
 import 'package:flash_blog/core/error/failures.dart' as failures;
-import 'package:flash_blog/features/auth/domain/entities/user.dart';
+import 'package:flash_blog/core/usecase/usecase.dart';
+import 'package:flash_blog/features/auth/domain/usecases/current_user.dart';
 import 'package:flash_blog/features/auth/domain/usecases/user_login.dart';
 import 'package:flash_blog/features/auth/domain/usecases/user_signup.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,16 +19,22 @@ part '../../../../../generated/features/auth/presentation/bloc/auth/auth_bloc.fr
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserSignup _userSignup;
   final UserLogin _userLogin;
+  final CurrentUser _currentUser;
+  final AppUserCubit _appUserCubit;
 
   AuthBloc({
     required final UserSignup userSignup,
     required final UserLogin userLogin,
+    required final CurrentUser currentUser,
+    required final AppUserCubit appUserCubit,
   }) : _userLogin = userLogin,
        _userSignup = userSignup,
+       _currentUser = currentUser,
+       _appUserCubit = appUserCubit,
        super(const AuthState.initial()) {
     on<_Signup>(_onSignUp);
-
     on<_Login>(_onLogin);
+    on<_IsLoggedIn>(_isLoggedIn);
   }
 
   Future<void> _onLogin(
@@ -44,7 +53,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           },
           (final User user) {
             debugPrint('Auth Login Success: $user');
-            emit(AuthState.success(user));
+            _emitAuthSuccess(user, emit);
           },
         )
         .run();
@@ -70,9 +79,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           },
           (final User user) {
             debugPrint('Auth Signup Success: $user');
-            emit(AuthState.success(user));
+            _emitAuthSuccess(user, emit);
           },
         )
         .run();
+  }
+
+  Future<void> _isLoggedIn(
+    final _IsLoggedIn event,
+    final Emitter<AuthState> emit,
+  ) async {
+    debugPrint('Auth Event: $event');
+    emit(const AuthState.loading());
+    await _currentUser(NoParams())
+        .match(
+          (final failures.Failure failure) {
+            debugPrint('Auth IsLogin Failure: ${failure.message}');
+            emit(AuthState.failure(failure.message));
+          },
+          (final User user) {
+            debugPrint('Auth IsLogin Success: $user');
+            _emitAuthSuccess(user, emit);
+          },
+        )
+        .run();
+  }
+
+  void _emitAuthSuccess(final User user, final Emitter<AuthState> emit) {
+    _appUserCubit.updateUser(user);
+    emit(AuthState.success(user));
   }
 }

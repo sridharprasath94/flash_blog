@@ -1,13 +1,36 @@
+import 'package:flash_blog/core/common/entities/user.dart';
+import 'package:flash_blog/core/error/exceptions.dart';
 import 'package:flash_blog/core/error/failures.dart';
 import 'package:flash_blog/features/auth/data/data_sources/auth_remote_data_sources.dart';
-import 'package:flash_blog/features/auth/domain/entities/user.dart';
+import 'package:flash_blog/features/auth/data/models/user_model.dart';
 import 'package:flash_blog/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:gotrue/src/types/session.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
 
   AuthRepositoryImpl({required this.authRemoteDataSource});
+
+  @override
+  TaskEither<Failure, User> currentUser() => TaskEither<Failure, User>.Do((
+    final Future<A> Function<A>(TaskEither<Failure, A>) $,
+  ) async {
+    final Session session = await $(
+      TaskEither<Failure, Session>.fromNullable(
+        authRemoteDataSource.currentUserSession,
+        () => Failure('User not logged in!'),
+      ),
+    );
+
+    final UserModel user = await $(
+      TaskEither<Failure, UserModel>.fromNullable(
+        await authRemoteDataSource.getCurrentUserData(),
+        () => Failure('User not logged in!'),
+      ),
+    );
+    return user;
+  });
 
   @override
   TaskEither<Failure, User> signInWithEmailAndPassword({

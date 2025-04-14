@@ -1,5 +1,5 @@
+import 'package:flash_blog/core/common/entities/user.dart';
 import 'package:flash_blog/core/error/failures.dart';
-import 'package:flash_blog/features/auth/domain/entities/user.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class AuthRepository {
@@ -13,6 +13,8 @@ abstract interface class AuthRepository {
     required final String email,
     required final String password,
   });
+
+  TaskEither<Failure, User> currentUser();
 
   Future<void> signOut();
 }

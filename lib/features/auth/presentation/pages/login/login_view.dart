@@ -1,7 +1,7 @@
+import 'package:flash_blog/core/common/entities/user.dart';
 import 'package:flash_blog/core/common/widgets/loader.dart';
 import 'package:flash_blog/core/theme/app_palette.dart';
 import 'package:flash_blog/core/utils/show_snackbar.dart';
-import 'package:flash_blog/features/auth/domain/entities/user.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_model.dart';
 import 'package:flash_blog/features/auth/presentation/widgets/auth_field.dart';
@@ -73,11 +73,11 @@ class LoginView extends StatelessWidget {
                   buttonText: 'Sign In',
                   onPressed: () {
                     optionOf(formKey.currentState).fold(
-                          () => debugPrint('Form is not valid'),
-                          (final FormState formState) =>
-                      formState.validate()
-                          ? controller.tapSignInButton()
-                          : debugPrint('Form is invalid'),
+                      () => debugPrint('Form is not valid'),
+                      (final FormState formState) =>
+                          formState.validate()
+                              ? controller.tapSignInButton()
+                              : debugPrint('Form is invalid'),
                     );
                   },
                 ),

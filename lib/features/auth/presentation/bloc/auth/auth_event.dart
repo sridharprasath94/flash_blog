@@ -12,4 +12,5 @@ class AuthEvent with _$AuthEvent {
     required final String username,
     required final String password,
   }) = _Signup;
+  const factory AuthEvent.isLoggedIn() = _IsLoggedIn;
 }

@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthRemoteDataSource {
+  Session? get currentUserSession;
+
   Future<UserModel> signInWithEmailAndPassword({
     required final String email,
     required final String password,
@@ -14,12 +16,17 @@ abstract interface class AuthRemoteDataSource {
     required final String email,
     required final String password,
   });
+
+  Future<UserModel?> getCurrentUserData();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final SupabaseClient supabaseClient;
 
   AuthRemoteDataSourceImpl({required this.supabaseClient});
+
+  @override
+  Session? get currentUserSession => supabaseClient.auth.currentSession;
 
   @override
   Future<UserModel> signUpWithEmailAndPassword({
@@ -50,10 +57,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required final String password,
   }) async {
     try {
-      final AuthResponse response = await supabaseClient.auth.signInWithPassword(
-        email: email,
-        password: password,
-      );
+      final AuthResponse response = await supabaseClient.auth
+          .signInWithPassword(email: email, password: password);
 
       if (response.user == null) {
         throw ServerException('User is null');
@@ -61,6 +66,27 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return UserModel.fromJson(response.user!.toJson());
     } on Exception catch (error) {
       throw ServerException(error.toString());
+    }
+  }
+
+  @override
+  Future<UserModel?> getCurrentUserData() async {
+    try {
+      if (currentUserSession != null) {
+        final PostgrestList userData = await supabaseClient
+            .from('profiles')
+            .select()
+            .eq('id', currentUserSession!.user.id);
+        debugPrint('UserData: ${userData.first}');
+        return UserModel.fromJson(userData.first).copyWith(
+          email: currentUserSession!.user.email!,
+          username: currentUserSession!.user.userMetadata?['username']!,
+        );
+      }
+
+      return null;
+    } catch (e) {
+      throw ServerException(e.toString());
     }
   }
 }

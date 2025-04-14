@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:desktop_window/desktop_window.dart';
+import 'package:flash_blog/core/common/cubits/app_user_cubit.dart';
 import 'package:flash_blog/core/theme/theme.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flash_blog/init_dependencies.dart';
@@ -21,6 +22,9 @@ void main() async {
     ProviderScope(
       child: MultiBlocProvider(
         providers: <SingleChildWidget>[
+          BlocProvider<AppUserCubit>(
+            create: (_) => serviceLocator<AppUserCubit>(),
+          ),
           BlocProvider<AuthBloc>(create: (_) => serviceLocator<AuthBloc>()),
         ],
         child: const MyApp(),
@@ -29,11 +33,22 @@ void main() async {
   );
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(final BuildContext context, final WidgetRef ref) =>
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(const AuthEvent.isLoggedIn());
+  }
+
+  @override
+  Widget build(final BuildContext context) =>
       MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Blog App',

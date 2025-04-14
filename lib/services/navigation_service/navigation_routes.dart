@@ -14,6 +14,7 @@ part '../../generated/services/navigation_service/navigation_routes.g.dart';
 const String initialLocation = loginRoute;
 const String signUpRoute = '/signup';
 const String loginRoute = '/login';
+const String homeRoute = '/home';
 
 @TypedGoRoute<SignUpRoute>(path: signUpRoute)
 class SignUpRoute extends GoRouteData {
@@ -52,5 +53,17 @@ class LoginRoute extends GoRouteData {
             model: ref.watch(loginControllerImplProvider),
           );
         },
+      );
+}
+
+
+@TypedGoRoute<HomeRoute>(path: homeRoute)
+class HomeRoute extends GoRouteData {
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) =>
+      const SizedBox(
+        child: Center(
+          child: Text('Logged In'),
+        ),
       );
 }

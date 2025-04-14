@@ -1,7 +1,7 @@
+import 'package:flash_blog/core/common/entities/user.dart';
 import 'package:flash_blog/core/common/widgets/loader.dart';
 import 'package:flash_blog/core/theme/app_palette.dart';
 import 'package:flash_blog/core/utils/show_snackbar.dart';
-import 'package:flash_blog/features/auth/domain/entities/user.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
 
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_model.dart';
