@@ -1,5 +1,6 @@
 import 'package:flash_blog/core/error/exceptions.dart';
 import 'package:flash_blog/features/auth/data/models/user_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthRemoteDataSource {
@@ -36,6 +37,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (response.user == null) {
         throw ServerException('User is null');
       }
+      debugPrint('User: ${response.user}');
       return UserModel.fromJson(response.user!.toJson());
     } on Exception catch (error) {
       throw ServerException(error.toString());

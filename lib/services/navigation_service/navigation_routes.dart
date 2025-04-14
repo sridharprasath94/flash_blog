@@ -44,6 +44,7 @@ class LoginRoute extends GoRouteData {
           final LoginControllerImplProvider loginControllerImplProvider =
               LoginControllerImplProvider(
                 navigationService: ref.watch(goRouterNavigationServiceProvider),
+                authBloc: context.read<AuthBloc>(),
               );
           return LoginView(
             formKey: GlobalKey<FormState>(),

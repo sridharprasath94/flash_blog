@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_model.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_navigation_service.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_view.dart';
@@ -14,18 +13,14 @@ class LoginControllerImpl extends _$LoginControllerImpl
   @override
   LoginModel build({
     required final LoginNavigationService navigationService,
+    required final AuthBloc authBloc,
   }) {
-    scheduleMicrotask(init);
     ref.onDispose(dispose);
     return LoginModel(
       isLoading: false,
       emailController: TextEditingController(),
       passwordController: TextEditingController(),
     );
-  }
-
-  void init() {
-
   }
 
   void dispose() {
@@ -45,6 +40,12 @@ class LoginControllerImpl extends _$LoginControllerImpl
 
   @override
   void tapSignInButton() {
-    // TODO: implement tapSignInButton
+    debugPrint('Sign up button tapped');
+    authBloc.add(
+      AuthEvent.login(
+        email: state.emailController.text.trim(),
+        password: state.passwordController.text.trim(),
+      ),
+    );
   }
 }

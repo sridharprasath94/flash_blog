@@ -7,7 +7,7 @@ part of '../../../../../../features/auth/presentation/pages/login/login_controll
 // **************************************************************************
 
 String _$loginControllerImplHash() =>
-    r'8a9ce3039c3e466d45034ed24a9d8bf79cd066de';
+    r'19ea7729dd92325846e1bd273d1686d90459f496';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,8 +33,12 @@ class _SystemHash {
 abstract class _$LoginControllerImpl
     extends BuildlessAutoDisposeNotifier<LoginModel> {
   late final LoginNavigationService navigationService;
+  late final AuthBloc authBloc;
 
-  LoginModel build({required LoginNavigationService navigationService});
+  LoginModel build({
+    required LoginNavigationService navigationService,
+    required AuthBloc authBloc,
+  });
 }
 
 /// See also [LoginControllerImpl].
@@ -49,15 +53,22 @@ class LoginControllerImplFamily extends Family<LoginModel> {
   /// See also [LoginControllerImpl].
   LoginControllerImplProvider call({
     required LoginNavigationService navigationService,
+    required AuthBloc authBloc,
   }) {
-    return LoginControllerImplProvider(navigationService: navigationService);
+    return LoginControllerImplProvider(
+      navigationService: navigationService,
+      authBloc: authBloc,
+    );
   }
 
   @override
   LoginControllerImplProvider getProviderOverride(
     covariant LoginControllerImplProvider provider,
   ) {
-    return call(navigationService: provider.navigationService);
+    return call(
+      navigationService: provider.navigationService,
+      authBloc: provider.authBloc,
+    );
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -81,8 +92,12 @@ class LoginControllerImplProvider
   /// See also [LoginControllerImpl].
   LoginControllerImplProvider({
     required LoginNavigationService navigationService,
+    required AuthBloc authBloc,
   }) : this._internal(
-         () => LoginControllerImpl()..navigationService = navigationService,
+         () =>
+             LoginControllerImpl()
+               ..navigationService = navigationService
+               ..authBloc = authBloc,
          from: loginControllerImplProvider,
          name: r'loginControllerImplProvider',
          debugGetCreateSourceHash:
@@ -93,6 +108,7 @@ class LoginControllerImplProvider
          allTransitiveDependencies:
              LoginControllerImplFamily._allTransitiveDependencies,
          navigationService: navigationService,
+         authBloc: authBloc,
        );
 
   LoginControllerImplProvider._internal(
@@ -103,13 +119,18 @@ class LoginControllerImplProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.navigationService,
+    required this.authBloc,
   }) : super.internal();
 
   final LoginNavigationService navigationService;
+  final AuthBloc authBloc;
 
   @override
   LoginModel runNotifierBuild(covariant LoginControllerImpl notifier) {
-    return notifier.build(navigationService: navigationService);
+    return notifier.build(
+      navigationService: navigationService,
+      authBloc: authBloc,
+    );
   }
 
   @override
@@ -117,13 +138,17 @@ class LoginControllerImplProvider
     return ProviderOverride(
       origin: this,
       override: LoginControllerImplProvider._internal(
-        () => create()..navigationService = navigationService,
+        () =>
+            create()
+              ..navigationService = navigationService
+              ..authBloc = authBloc,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         navigationService: navigationService,
+        authBloc: authBloc,
       ),
     );
   }
@@ -137,13 +162,15 @@ class LoginControllerImplProvider
   @override
   bool operator ==(Object other) {
     return other is LoginControllerImplProvider &&
-        other.navigationService == navigationService;
+        other.navigationService == navigationService &&
+        other.authBloc == authBloc;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
+    hash = _SystemHash.combine(hash, authBloc.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -154,6 +181,9 @@ class LoginControllerImplProvider
 mixin LoginControllerImplRef on AutoDisposeNotifierProviderRef<LoginModel> {
   /// The parameter `navigationService` of this provider.
   LoginNavigationService get navigationService;
+
+  /// The parameter `authBloc` of this provider.
+  AuthBloc get authBloc;
 }
 
 class _LoginControllerImplProviderElement
@@ -164,6 +194,8 @@ class _LoginControllerImplProviderElement
   @override
   LoginNavigationService get navigationService =>
       (origin as LoginControllerImplProvider).navigationService;
+  @override
+  AuthBloc get authBloc => (origin as LoginControllerImplProvider).authBloc;
 }
 
 // ignore_for_file: type=lint

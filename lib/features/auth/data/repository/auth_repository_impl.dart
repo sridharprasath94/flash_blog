@@ -13,12 +13,11 @@ class AuthRepositoryImpl implements AuthRepository {
   TaskEither<Failure, User> signInWithEmailAndPassword({
     required final String email,
     required final String password,
-  }) => TaskEither<Failure, User>.tryCatch(
+  }) => _getUser(
     () async => authRemoteDataSource.signInWithEmailAndPassword(
       email: email,
       password: password,
     ),
-    (final Object error, _) => Failure(error.toString()),
   );
 
   @override
@@ -32,12 +31,17 @@ class AuthRepositoryImpl implements AuthRepository {
     required final String username,
     required final String email,
     required final String password,
-  }) => TaskEither<Failure, User>.tryCatch(
+  }) => _getUser(
     () async => authRemoteDataSource.signUpWithEmailAndPassword(
       username: username,
       email: email,
       password: password,
     ),
-    (final Object error, _) => Failure(error.toString()),
   );
+
+  TaskEither<Failure, User> _getUser(final Future<User> Function() function) =>
+      TaskEither<Failure, User>.tryCatch(
+        function,
+        (final Object error, _) => Failure(error.toString()),
+      );
 }

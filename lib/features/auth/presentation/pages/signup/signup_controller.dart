@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_model.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_navigation_service.dart';
@@ -17,7 +15,6 @@ class SignupControllerImpl extends _$SignupControllerImpl
     required final SignupNavigationService navigationService,
     required final AuthBloc authBloc,
   }) {
-    scheduleMicrotask(init);
     ref.onDispose(dispose);
     return SignupModel(
       isLoading: false,
@@ -26,8 +23,6 @@ class SignupControllerImpl extends _$SignupControllerImpl
       passwordController: TextEditingController(),
     );
   }
-
-  void init() {}
 
   void dispose() {
     state.emailController.dispose();

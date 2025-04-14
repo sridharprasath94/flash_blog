@@ -12,7 +12,6 @@ part of '../../../../../features/auth/data/models/user_model.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$UserModel {
 
@@ -23,8 +22,6 @@ mixin _$UserModel {
 @pragma('vm:prefer-inline')
 $UserModelCopyWith<UserModel> get copyWith => _$UserModelCopyWithImpl<UserModel>(this as UserModel, _$identity);
 
-  /// Serializes this UserModel to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -32,7 +29,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,username,email);
 
@@ -79,11 +76,11 @@ as String,
 
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _UserModel implements UserModel {
   const _UserModel({required this.id, required this.username, required this.email});
-  factory _UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+  
 
 @override final  String id;
 @override final  String username;
@@ -95,17 +92,14 @@ class _UserModel implements UserModel {
 @pragma('vm:prefer-inline')
 _$UserModelCopyWith<_UserModel> get copyWith => __$UserModelCopyWithImpl<_UserModel>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$UserModelToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,username,email);
 

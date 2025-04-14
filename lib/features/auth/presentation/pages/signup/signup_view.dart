@@ -1,4 +1,4 @@
-import 'package:flash_blog/core/error/loader.dart';
+import 'package:flash_blog/core/common/widgets/loader.dart';
 import 'package:flash_blog/core/theme/app_palette.dart';
 import 'package:flash_blog/core/utils/show_snackbar.dart';
 import 'package:flash_blog/features/auth/domain/entities/user.dart';
