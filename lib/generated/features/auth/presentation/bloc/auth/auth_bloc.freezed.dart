@@ -310,10 +310,10 @@ String toString() {
 
 
 class _Success implements AuthState {
-  const _Success(this.userId);
+  const _Success(this.userModel);
   
 
- final  String userId;
+ final  UserModel userModel;
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
@@ -325,16 +325,16 @@ _$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.userId, userId) || other.userId == userId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.userModel, userModel) || other.userModel == userModel));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,userId);
+int get hashCode => Object.hash(runtimeType,userModel);
 
 @override
 String toString() {
-  return 'AuthState.success(userId: $userId)';
+  return 'AuthState.success(userModel: $userModel)';
 }
 
 
@@ -345,11 +345,11 @@ abstract mixin class _$SuccessCopyWith<$Res> implements $AuthStateCopyWith<$Res>
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
 @useResult
 $Res call({
- String userId
+ UserModel userModel
 });
 
 
-
+$UserModelCopyWith<$Res> get userModel;
 
 }
 /// @nodoc
@@ -362,14 +362,23 @@ class __$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? userId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? userModel = null,}) {
   return _then(_Success(
-null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,
+null == userModel ? _self.userModel : userModel // ignore: cast_nullable_to_non_nullable
+as UserModel,
   ));
 }
 
-
+/// Create a copy of AuthState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserModelCopyWith<$Res> get userModel {
+  
+  return $UserModelCopyWith<$Res>(_self.userModel, (value) {
+    return _then(_self.copyWith(userModel: value));
+  });
+}
 }
 
 /// @nodoc

@@ -1,4 +1,5 @@
 import 'package:flash_blog/core/error/failures.dart';
+import 'package:flash_blog/features/auth/data/models/user_model.dart';
 import 'package:flash_blog/features/auth/domain/usecases/user_signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,9 +33,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               debugPrint('Auth Failure: ${failure.message}');
               emit(AuthState.failure(failure.message));
             },
-            (final String user) {
-              debugPrint('Auth Success: $user');
-              emit(AuthState.success(user));
+            (final UserModel userModel) {
+              debugPrint('Auth Success: $userModel');
+              emit(AuthState.success(userModel));
             },
           )
           .run();

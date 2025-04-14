@@ -1,5 +1,6 @@
 import 'package:flash_blog/core/error/failures.dart';
 import 'package:flash_blog/features/auth/data/data_sources/auth_remote_data_sources.dart';
+import 'package:flash_blog/features/auth/data/models/user_model.dart';
 import 'package:flash_blog/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -27,11 +28,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  TaskEither<Failure, String> signUpWithEmailAndPassword({
+  TaskEither<Failure, UserModel> signUpWithEmailAndPassword({
     required final String username,
     required final String email,
     required final String password,
-  }) => TaskEither<Failure, String>.tryCatch(
+  }) => TaskEither<Failure, UserModel>.tryCatch(
     () async => authRemoteDataSource.signUpWithEmailAndPassword(
       username: username,
       email: email,

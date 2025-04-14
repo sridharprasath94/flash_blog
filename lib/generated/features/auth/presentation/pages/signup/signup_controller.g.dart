@@ -7,7 +7,7 @@ part of '../../../../../../features/auth/presentation/pages/signup/signup_contro
 // **************************************************************************
 
 String _$signupControllerImplHash() =>
-    r'b10aee4ee28259a06cd61c4c408541d7dfb56aea';
+    r'5dd27cca3c4ca9e8e706dbc87715a85b0e9b4cd8';
 
 /// Copied from Dart SDK
 class _SystemHash {
