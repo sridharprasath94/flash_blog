@@ -14,6 +14,7 @@ part '../../generated/services/navigation_service/navigation_routes.g.dart';
 const String initialLocation = loginRoute;
 const String signUpRoute = '/signup';
 const String loginRoute = '/login';
+const String splashRoute = '/splash';
 const String homeRoute = '/home';
 
 @TypedGoRoute<SignUpRoute>(path: signUpRoute)
@@ -56,14 +57,18 @@ class LoginRoute extends GoRouteData {
       );
 }
 
-
 @TypedGoRoute<HomeRoute>(path: homeRoute)
 class HomeRoute extends GoRouteData {
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
-      const SizedBox(
-        child: Center(
-          child: Text('Logged In'),
-        ),
-      );
+      const SizedBox(child: Center(child: Text('Logged In')));
+}
+
+@TypedGoRoute<SplashRoute>(path: splashRoute)
+class SplashRoute extends GoRouteData {
+  const SplashRoute();
+
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) =>
+      const SizedBox(child: Center(child: Text('Splash Screen')));
 }

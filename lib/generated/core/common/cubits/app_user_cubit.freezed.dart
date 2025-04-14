@@ -140,4 +140,36 @@ as User,
 
 }
 
+/// @nodoc
+
+
+class LoggedOut implements AppUserState {
+  const LoggedOut();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoggedOut);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AppUserState.loggedOut()';
+}
+
+
+}
+
+
+
+
 // dart format on

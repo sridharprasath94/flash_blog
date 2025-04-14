@@ -11,16 +11,16 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part '../../generated/services/navigation_service/navigation_service_provider.g.dart';
 
 @riverpod
-GoRouter goRouter(final Ref ref) =>
-    GoRouter(
-      routes: $appRoutes,
-      navigatorKey: NavigationService.navigatorKey,
-      redirect: (final BuildContext context, final GoRouterState state) {
-        debugPrint('App User State: ${context.read<AppUserCubit>().state}');
-        return switch (context.read<AppUserCubit>().state) {
-          Initial() => loginRoute,
-          LoggedIn(user: final User _) => homeRoute,
-          AppUserState() => null,
-        };
+GoRouter goRouter(final Ref ref) => GoRouter(
+  routes: $appRoutes,
+  navigatorKey: NavigationService.navigatorKey,
+  redirect:
+      (final BuildContext context, final GoRouterState state) => switch (context
+          .watch<AppUserCubit>()
+          .state) {
+        Initial() => splashRoute,
+        LoggedIn(user: final User _) => homeRoute,
+        LoggedOut() => loginRoute,
+        AppUserState() => splashRoute,
       },
-    );
+);
