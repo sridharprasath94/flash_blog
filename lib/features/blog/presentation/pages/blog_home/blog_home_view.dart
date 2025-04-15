@@ -1,10 +1,15 @@
 import 'package:flash_blog/core/utils/show_snackbar.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class BlogHomeController {
+  void tapLogoutButton();
+
+  void tapAddNewBlogButton();
+
   void tapBackButton();
 
   void tapUploadButton();
@@ -25,13 +30,15 @@ class BlogHomeView extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: const Text('Blog Home'),
+      title: const Center(child: Text('Blog Home')),
+      leading: IconButton(
+        icon: const Icon(Icons.logout),
+        onPressed: controller.tapLogoutButton,
+      ),
       actions: <Widget>[
         IconButton(
-          icon: const Icon(Icons.logout),
-          onPressed: () {
-            context.read<AuthBloc>().add(const AuthEvent.signOut());
-          },
+          onPressed: controller.tapAddNewBlogButton,
+          icon: const Icon(CupertinoIcons.add_circled),
         ),
       ],
     ),

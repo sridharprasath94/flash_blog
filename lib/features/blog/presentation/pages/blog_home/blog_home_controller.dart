@@ -1,7 +1,4 @@
 import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_model.dart';
-import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_navigation_service.dart';
-import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_view.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_model.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_navigation_service.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_view.dart';
@@ -18,13 +15,10 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
     required final AuthBloc authBloc,
   }) {
     ref.onDispose(dispose);
-    return const BlogHomeModel(
-      isLoading: false,
-    );
+    return const BlogHomeModel(isLoading: false);
   }
 
-  void dispose() {
-  }
+  void dispose() {}
 
   @override
   void tapBackButton() {
@@ -34,5 +28,15 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
   @override
   void tapUploadButton() {
     // TODO: implement tapUploadButton
+  }
+
+  @override
+  void tapAddNewBlogButton() {
+    navigationService.navigateToAddNewBlogView();
+  }
+
+  @override
+  void tapLogoutButton() {
+    authBloc.add(const AuthEvent.signOut());
   }
 }

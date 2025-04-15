@@ -47,4 +47,9 @@ class NavigationService
   void navigateToSignInView() {
     unawaited(goRouter.push(loginRoute));
   }
+
+  @override
+  void navigateToAddNewBlogView() {
+    unawaited(goRouter.push(addNewBlogRoute));
+  }
 }

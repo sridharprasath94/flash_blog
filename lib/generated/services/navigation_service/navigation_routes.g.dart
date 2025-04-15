@@ -9,6 +9,7 @@ part of '../../../services/navigation_service/navigation_routes.dart';
 List<RouteBase> get $appRoutes => [
   $signUpRoute,
   $loginRoute,
+  $blogHomeRoute,
   $addNewBlogRoute,
   $splashRoute,
 ];
@@ -44,6 +45,27 @@ extension $LoginRouteExtension on LoginRoute {
   static LoginRoute _fromState(GoRouterState state) => LoginRoute();
 
   String get location => GoRouteData.$location('/login');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $blogHomeRoute => GoRouteData.$route(
+  path: '/blogHome',
+
+  factory: $BlogHomeRouteExtension._fromState,
+);
+
+extension $BlogHomeRouteExtension on BlogHomeRoute {
+  static BlogHomeRoute _fromState(GoRouterState state) => BlogHomeRoute();
+
+  String get location => GoRouteData.$location('/blogHome');
 
   void go(BuildContext context) => context.go(location);
 
