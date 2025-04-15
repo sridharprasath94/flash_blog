@@ -93,11 +93,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final Emitter<AuthState> emit,
   ) async {
     debugPrint('Auth Event: $event');
-    emit(const AuthState.loading());
     await _currentUser(NoParams())
         .match(
           (final failures.Failure failure) {
-            _emitAuthFailure(failure.message, emit);
+            _appUserCubit.updateUser(null);
           },
           (final User user) {
             debugPrint('Auth IsLogin Success: $user');
