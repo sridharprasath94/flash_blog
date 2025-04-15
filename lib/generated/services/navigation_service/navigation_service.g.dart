@@ -7,7 +7,7 @@ part of '../../../services/navigation_service/navigation_service.dart';
 // **************************************************************************
 
 String _$goRouterNavigationServiceHash() =>
-    r'69680831edc048511963bdab38e149b25366ecb0';
+    r'32cb879a6749bd2956ed7d1e9f99aa5bcddf032f';
 
 /// See also [goRouterNavigationService].
 @ProviderFor(goRouterNavigationService)

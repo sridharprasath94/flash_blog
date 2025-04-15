@@ -16,5 +16,5 @@ abstract interface class AuthRepository {
 
   TaskEither<Failure, User> currentUser();
 
-  Future<void> signOut();
+  TaskEither<Failure, bool> signOut();
 }

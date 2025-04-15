@@ -40,7 +40,7 @@ class LoginControllerImpl extends _$LoginControllerImpl
 
   @override
   void tapSignInButton() {
-    debugPrint('Sign up button tapped');
+    debugPrint('Sign In button tapped');
     authBloc.add(
       AuthEvent.login(
         email: state.emailController.text.trim(),

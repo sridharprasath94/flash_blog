@@ -1,3 +1,4 @@
+import 'package:flash_blog/core/utils/show_snackbar.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_controller.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_view.dart';
@@ -5,6 +6,7 @@ import 'package:flash_blog/features/auth/presentation/pages/signup/signup_contro
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_view.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -61,7 +63,43 @@ class LoginRoute extends GoRouteData {
 class HomeRoute extends GoRouteData {
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
-      const SizedBox(child: Center(child: Text('Logged In')));
+      Consumer(
+        builder: (final _, final WidgetRef ref, final __) {
+          final NavigationService navigationService = ref.read(
+            goRouterNavigationServiceProvider,
+          );
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Home'),
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () {
+                    context.read<AuthBloc>().add(const AuthEvent.signOut());
+                  },
+                ),
+              ],
+            ),
+            body: BlocConsumer<AuthBloc, AuthState>(
+              listener: (final BuildContext context, final AuthState state) {
+                switch (state) {
+                  case LoggedOut():
+                    showSnackBar(context, 'Logged Out Successfully');
+                    break;
+                  case Failure(:final String message):
+                    showSnackBar(context, message);
+                    break;
+                  default:
+                    break;
+                }
+              },
+              builder:
+                  (final BuildContext context, final AuthState state) =>
+                      const Center(child: Text('Logged In')),
+            ),
+          );
+        },
+      );
 }
 
 @TypedGoRoute<SplashRoute>(path: splashRoute)

@@ -245,6 +245,38 @@ String toString() {
 
 
 /// @nodoc
+
+
+class _SignOut implements AuthEvent {
+  const _SignOut();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignOut);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AuthEvent.signOut()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
 mixin _$AuthState {
 
 
@@ -341,8 +373,40 @@ String toString() {
 /// @nodoc
 
 
-class Success implements AuthState {
-  const Success(this.user);
+class LoggedOut implements AuthState {
+  const LoggedOut();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoggedOut);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'AuthState.loggedOut()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class LoggedIn implements AuthState {
+  const LoggedIn(this.user);
   
 
  final  User user;
@@ -351,13 +415,13 @@ class Success implements AuthState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$SuccessCopyWith<Success> get copyWith => _$SuccessCopyWithImpl<Success>(this, _$identity);
+$LoggedInCopyWith<LoggedIn> get copyWith => _$LoggedInCopyWithImpl<LoggedIn>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoggedIn&&(identical(other.user, user) || other.user == user));
 }
 
 
@@ -366,15 +430,15 @@ int get hashCode => Object.hash(runtimeType,user);
 
 @override
 String toString() {
-  return 'AuthState.success(user: $user)';
+  return 'AuthState.loggedIn(user: $user)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SuccessCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
-  factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
+abstract mixin class $LoggedInCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+  factory $LoggedInCopyWith(LoggedIn value, $Res Function(LoggedIn) _then) = _$LoggedInCopyWithImpl;
 @useResult
 $Res call({
  User user
@@ -385,17 +449,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$SuccessCopyWithImpl<$Res>
-    implements $SuccessCopyWith<$Res> {
-  _$SuccessCopyWithImpl(this._self, this._then);
+class _$LoggedInCopyWithImpl<$Res>
+    implements $LoggedInCopyWith<$Res> {
+  _$LoggedInCopyWithImpl(this._self, this._then);
 
-  final Success _self;
-  final $Res Function(Success) _then;
+  final LoggedIn _self;
+  final $Res Function(LoggedIn) _then;
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
-  return _then(Success(
+  return _then(LoggedIn(
 null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,
   ));

@@ -16,10 +16,11 @@ GoRouter goRouter(final Ref ref) => GoRouter(
   routes: $appRoutes,
   redirect: (final BuildContext context, final GoRouterState state) {
     final AppUserState appUserState = context.watch<AppUserCubit>().state;
+    debugPrint('App User State: $appUserState');
     return switch (appUserState) {
       Initial() => null,
-      LoggedIn() => state.fullPath == homeRoute ? null : homeRoute,
-      LoggedOut() => state.fullPath == loginRoute ? null : loginRoute,
+      LoggedIn() => homeRoute,
+      LoggedOut() => loginRoute,
       AppUserState() => null,
     };
   },

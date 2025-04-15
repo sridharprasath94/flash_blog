@@ -40,7 +40,7 @@ class LoginView extends StatelessWidget {
             case Failure(:final String message):
               showSnackBar(context, message);
               break;
-            case Success(:final User user):
+            case LoggedIn(:final User user):
               showSnackBar(context, user.toString());
               break;
             default:

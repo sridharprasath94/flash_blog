@@ -5,6 +5,7 @@ import 'package:flash_blog/features/auth/data/repository/auth_repository_impl.da
 import 'package:flash_blog/features/auth/domain/repository/auth_repository.dart';
 import 'package:flash_blog/features/auth/domain/usecases/current_user.dart';
 import 'package:flash_blog/features/auth/domain/usecases/user_login.dart';
+import 'package:flash_blog/features/auth/domain/usecases/user_signout.dart';
 import 'package:flash_blog/features/auth/domain/usecases/user_signup.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -43,6 +44,9 @@ void _initAuth() {
     ..registerFactory<UserLogin>(
       () => UserLogin(authRepository: serviceLocator<AuthRepository>()),
     )
+    ..registerFactory<UserSignOut>(
+      () => UserSignOut(authRepository: serviceLocator<AuthRepository>()),
+    )
     ..registerFactory<CurrentUser>(
       () => CurrentUser(authRepository: serviceLocator<AuthRepository>()),
     )
@@ -51,6 +55,7 @@ void _initAuth() {
       () => AuthBloc(
         userSignup: serviceLocator<UserSignup>(),
         userLogin: serviceLocator<UserLogin>(),
+        userSignOut: serviceLocator<UserSignOut>(),
         currentUser: serviceLocator<CurrentUser>(),
         appUserCubit: serviceLocator<AppUserCubit>(),
       ),

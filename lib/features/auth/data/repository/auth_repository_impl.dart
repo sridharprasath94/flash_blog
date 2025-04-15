@@ -43,10 +43,10 @@ class AuthRepositoryImpl implements AuthRepository {
   );
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
-  }
+  TaskEither<Failure, bool> signOut() => TaskEither<Failure, bool>.tryCatch(
+    () async => authRemoteDataSource.signOut(),
+    (final Object error, _) => Failure(error.toString()),
+  );
 
   @override
   TaskEither<Failure, User> signUpWithEmailAndPassword({

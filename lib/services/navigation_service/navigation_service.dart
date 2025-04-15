@@ -14,7 +14,7 @@ part '../../generated/services/navigation_service/navigation_service.g.dart';
 
 @riverpod
 NavigationService goRouterNavigationService(final Ref ref) =>
-    NavigationService(ref.watch(goRouterProvider));
+    NavigationService(ref.read(goRouterProvider));
 
 class NavigationService  implements LoginNavigationService, SignupNavigationService {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey(

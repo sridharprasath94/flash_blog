@@ -7,7 +7,7 @@ part of '../../../../../../features/auth/presentation/pages/login/login_controll
 // **************************************************************************
 
 String _$loginControllerImplHash() =>
-    r'1868a0dd6d049d4620a04302630884c3610d64c0';
+    r'52219bbac46c54d9b72af98c43325722054298d7';
 
 /// Copied from Dart SDK
 class _SystemHash {
