@@ -6,6 +6,8 @@ import 'package:flash_blog/features/auth/presentation/pages/signup/signup_contro
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_view.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_controller.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_view.dart';
+import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_controller.dart';
+import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_view.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +20,7 @@ const String initialLocation = loginRoute;
 const String signUpRoute = '/signup';
 const String loginRoute = '/login';
 const String splashRoute = '/splash';
+const String blogHomeRoute = '/blogHome';
 const String addNewBlogRoute = '/addNewBlog';
 
 @TypedGoRoute<SignUpRoute>(path: signUpRoute)
@@ -55,6 +58,26 @@ class LoginRoute extends GoRouteData {
             formKey: GlobalKey<FormState>(),
             controller: ref.read(loginControllerImplProvider.notifier),
             model: ref.watch(loginControllerImplProvider),
+          );
+        },
+      );
+}
+
+@TypedGoRoute<BlogHomeRoute>(path: blogHomeRoute)
+class BlogHomeRoute extends GoRouteData {
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) =>
+      Consumer(
+        builder: (final _, final WidgetRef ref, final __) {
+          final BlogHomeControllerImplProvider blogHomeControllerImplProvider =
+              BlogHomeControllerImplProvider(
+                navigationService: ref.watch(goRouterNavigationServiceProvider),
+                authBloc: context.read<AuthBloc>(),
+              );
+          return BlogHomeView(
+            formKey: GlobalKey<FormState>(),
+            controller: ref.read(blogHomeControllerImplProvider.notifier),
+            model: ref.watch(blogHomeControllerImplProvider),
           );
         },
       );

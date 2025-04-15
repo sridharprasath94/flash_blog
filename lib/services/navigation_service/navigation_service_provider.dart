@@ -19,7 +19,7 @@ GoRouter goRouter(final Ref ref) => GoRouter(
     debugPrint('App User State: $appUserState');
     return switch (appUserState) {
       Initial() => null,
-      LoggedIn() => addNewBlogRoute,
+      LoggedIn() => blogHomeRoute,
       LoggedOut() => loginRoute,
       AppUserState() => null,
     };
