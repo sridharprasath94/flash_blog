@@ -1,5 +1,4 @@
 import 'package:flash_blog/core/common/cubits/app_user_cubit.dart';
-import 'package:flash_blog/core/common/entities/user.dart';
 import 'package:flash_blog/services/navigation_service/navigation_routes.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,13 +13,10 @@ part '../../generated/services/navigation_service/navigation_service_provider.g.
 GoRouter goRouter(final Ref ref) => GoRouter(
   routes: $appRoutes,
   navigatorKey: NavigationService.navigatorKey,
-  redirect:
-      (final BuildContext context, final GoRouterState state) => switch (context
-          .watch<AppUserCubit>()
-          .state) {
-        Initial() => splashRoute,
-        LoggedIn(user: final User _) => homeRoute,
-        LoggedOut() => loginRoute,
-        AppUserState() => splashRoute,
-      },
+  redirect: (final BuildContext context, final GoRouterState state) {
+    if (context.read<AppUserCubit>().state is LoggedIn) {
+      return homeRoute;
+    }
+    return loginRoute;
+  },
 );

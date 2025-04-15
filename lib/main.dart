@@ -50,10 +50,17 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(final BuildContext context) =>
-      MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Blog App',
-        theme: AppTheme.darkThemeMode,
-        routerConfig: ref.read(goRouterProvider),
+      BlocBuilder<AppUserCubit, AppUserState>(
+        builder: (final BuildContext context, final AppUserState state) {
+          if (state is Initial) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Blog App',
+            theme: AppTheme.darkThemeMode,
+            routerConfig: ref.read(goRouterProvider),
+          );
+        },
       );
 }

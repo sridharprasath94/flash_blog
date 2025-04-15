@@ -1,5 +1,4 @@
 import 'package:flash_blog/core/common/entities/user.dart';
-import 'package:flash_blog/core/error/exceptions.dart';
 import 'package:flash_blog/core/error/failures.dart';
 import 'package:flash_blog/features/auth/data/data_sources/auth_remote_data_sources.dart';
 import 'package:flash_blog/features/auth/data/models/user_model.dart';

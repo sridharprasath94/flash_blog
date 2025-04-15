@@ -45,9 +45,8 @@ void _initAuth() {
     )
     ..registerFactory<CurrentUser>(
       () => CurrentUser(authRepository: serviceLocator<AuthRepository>()),
-    )..registerLazySingleton<AppUserCubit>(
-      AppUserCubit.new
     )
+    ..registerLazySingleton<AppUserCubit>(AppUserCubit.new)
     ..registerLazySingleton(
       () => AuthBloc(
         userSignup: serviceLocator<UserSignup>(),
