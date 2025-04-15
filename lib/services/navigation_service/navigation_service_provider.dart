@@ -11,12 +11,16 @@ part '../../generated/services/navigation_service/navigation_service_provider.g.
 
 @riverpod
 GoRouter goRouter(final Ref ref) => GoRouter(
-  routes: $appRoutes,
+  initialLocation: splashRoute,
   navigatorKey: NavigationService.navigatorKey,
+  routes: $appRoutes,
   redirect: (final BuildContext context, final GoRouterState state) {
-    if (context.read<AppUserCubit>().state is LoggedIn) {
-      return homeRoute;
-    }
-    return loginRoute;
+    final AppUserState appUserState = context.watch<AppUserCubit>().state;
+    return switch (appUserState) {
+      Initial() => null,
+      LoggedIn() => state.fullPath == homeRoute ? null : homeRoute,
+      LoggedOut() => state.fullPath == loginRoute ? null : loginRoute,
+      AppUserState() => null,
+    };
   },
 );

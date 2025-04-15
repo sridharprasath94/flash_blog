@@ -48,19 +48,26 @@ class _MyAppState extends ConsumerState<MyApp> {
     context.read<AuthBloc>().add(const AuthEvent.isLoggedIn());
   }
 
+  // @override
+  // Widget build(final BuildContext context) =>
+  //     BlocSelector<AppUserCubit, AppUserState, bool>(
+  //       selector: (final AppUserState state) => state is LoggedIn,
+  //       builder: (final BuildContext context, final bool isLoggedIn) {
+  //         debugPrint('App User State: $isLoggedIn');
+  //         return MaterialApp.router(
+  //           debugShowCheckedModeBanner: false,
+  //           title: 'Blog App',
+  //           theme: AppTheme.darkThemeMode,
+  //           routerConfig: ref.read(goRouterProvider),
+  //         );
+  //       },
+  //     );
+
   @override
-  Widget build(final BuildContext context) =>
-      BlocBuilder<AppUserCubit, AppUserState>(
-        builder: (final BuildContext context, final AppUserState state) {
-          if (state is Initial) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            title: 'Blog App',
-            theme: AppTheme.darkThemeMode,
-            routerConfig: ref.read(goRouterProvider),
-          );
-        },
-      );
+  Widget build(final BuildContext context) => MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: 'Blog App',
+      theme: AppTheme.darkThemeMode,
+      routerConfig: ref.watch(goRouterProvider),
+    );
 }
