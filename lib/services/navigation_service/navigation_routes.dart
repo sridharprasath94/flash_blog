@@ -4,8 +4,9 @@ import 'package:flash_blog/features/auth/presentation/pages/login/login_controll
 import 'package:flash_blog/features/auth/presentation/pages/login/login_view.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_controller.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_view.dart';
+import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_controller.dart';
+import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_view.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +18,7 @@ const String initialLocation = loginRoute;
 const String signUpRoute = '/signup';
 const String loginRoute = '/login';
 const String splashRoute = '/splash';
-const String homeRoute = '/home';
+const String addNewBlogRoute = '/addNewBlog';
 
 @TypedGoRoute<SignUpRoute>(path: signUpRoute)
 class SignUpRoute extends GoRouteData {
@@ -59,44 +60,21 @@ class LoginRoute extends GoRouteData {
       );
 }
 
-@TypedGoRoute<HomeRoute>(path: homeRoute)
-class HomeRoute extends GoRouteData {
+@TypedGoRoute<AddNewBlogRoute>(path: addNewBlogRoute)
+class AddNewBlogRoute extends GoRouteData {
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
       Consumer(
         builder: (final _, final WidgetRef ref, final __) {
-          final NavigationService navigationService = ref.read(
-            goRouterNavigationServiceProvider,
+          final AddNewBlogControllerImplProvider
+          addNewBlogControllerImplProvider = AddNewBlogControllerImplProvider(
+            navigationService: ref.watch(goRouterNavigationServiceProvider),
+            authBloc: context.read<AuthBloc>(),
           );
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Home'),
-              actions: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.logout),
-                  onPressed: () {
-                    context.read<AuthBloc>().add(const AuthEvent.signOut());
-                  },
-                ),
-              ],
-            ),
-            body: BlocConsumer<AuthBloc, AuthState>(
-              listener: (final BuildContext context, final AuthState state) {
-                switch (state) {
-                  case LoggedOut():
-                    showSnackBar(context, 'Logged Out Successfully');
-                    break;
-                  case Failure(:final String message):
-                    showSnackBar(context, message);
-                    break;
-                  default:
-                    break;
-                }
-              },
-              builder:
-                  (final BuildContext context, final AuthState state) =>
-                      const Center(child: Text('Logged In')),
-            ),
+          return AddNewBlogView(
+            formKey: GlobalKey<FormState>(),
+            controller: ref.read(addNewBlogControllerImplProvider.notifier),
+            model: ref.watch(addNewBlogControllerImplProvider),
           );
         },
       );

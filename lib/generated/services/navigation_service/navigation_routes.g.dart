@@ -9,7 +9,7 @@ part of '../../../services/navigation_service/navigation_routes.dart';
 List<RouteBase> get $appRoutes => [
   $signUpRoute,
   $loginRoute,
-  $homeRoute,
+  $addNewBlogRoute,
   $splashRoute,
 ];
 
@@ -55,13 +55,16 @@ extension $LoginRouteExtension on LoginRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $homeRoute =>
-    GoRouteData.$route(path: '/home', factory: $HomeRouteExtension._fromState);
+RouteBase get $addNewBlogRoute => GoRouteData.$route(
+  path: '/addNewBlog',
 
-extension $HomeRouteExtension on HomeRoute {
-  static HomeRoute _fromState(GoRouterState state) => HomeRoute();
+  factory: $AddNewBlogRouteExtension._fromState,
+);
 
-  String get location => GoRouteData.$location('/home');
+extension $AddNewBlogRouteExtension on AddNewBlogRoute {
+  static AddNewBlogRoute _fromState(GoRouterState state) => AddNewBlogRoute();
+
+  String get location => GoRouteData.$location('/addNewBlog');
 
   void go(BuildContext context) => context.go(location);
 
