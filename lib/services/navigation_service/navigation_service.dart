@@ -36,7 +36,10 @@ class NavigationService
   final GoRouter goRouter;
 
   @override
-  void goBack() => goRouter.canPop() ? goRouter.pop() : goRouter.go(loginRoute);
+  void goBack() {
+    debugPrint('Navigating back');
+    goRouter.canPop() ? goRouter.pop() : goRouter.go(loginRoute);
+  }
 
   @override
   void navigateToSignUpView() {
@@ -50,6 +53,13 @@ class NavigationService
 
   @override
   void navigateToAddNewBlogView() {
+    debugPrint('Navigating to Add New Blog View');
     unawaited(goRouter.push(addNewBlogRoute));
+  }
+
+  @override
+  void navigateToBlogHomeView() {
+    debugPrint('Navigating to Blog Home View');
+    unawaited(goRouter.push(blogHomeRoute));
   }
 }

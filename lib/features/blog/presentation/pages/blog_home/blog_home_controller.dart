@@ -22,7 +22,7 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
 
   @override
   void tapBackButton() {
-    // TODO: implement tapBackButton
+    navigationService.goBack();
   }
 
   @override

@@ -7,7 +7,7 @@ part of '../../../../../../features/blog/presentation/pages/add_new_blog/add_new
 // **************************************************************************
 
 String _$addNewBlogControllerImplHash() =>
-    r'94afb6b44e835f129a829f23fe6b514a71230920';
+    r'58f3babcaf4b26117f158be61f77598d10f18233';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,11 +33,9 @@ class _SystemHash {
 abstract class _$AddNewBlogControllerImpl
     extends BuildlessAutoDisposeNotifier<AddNewBlogModel> {
   late final AddNewBlogNavigationService navigationService;
-  late final AuthBloc authBloc;
 
   AddNewBlogModel build({
     required AddNewBlogNavigationService navigationService,
-    required AuthBloc authBloc,
   });
 }
 
@@ -53,11 +51,9 @@ class AddNewBlogControllerImplFamily extends Family<AddNewBlogModel> {
   /// See also [AddNewBlogControllerImpl].
   AddNewBlogControllerImplProvider call({
     required AddNewBlogNavigationService navigationService,
-    required AuthBloc authBloc,
   }) {
     return AddNewBlogControllerImplProvider(
       navigationService: navigationService,
-      authBloc: authBloc,
     );
   }
 
@@ -65,10 +61,7 @@ class AddNewBlogControllerImplFamily extends Family<AddNewBlogModel> {
   AddNewBlogControllerImplProvider getProviderOverride(
     covariant AddNewBlogControllerImplProvider provider,
   ) {
-    return call(
-      navigationService: provider.navigationService,
-      authBloc: provider.authBloc,
-    );
+    return call(navigationService: provider.navigationService);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -96,12 +89,9 @@ class AddNewBlogControllerImplProvider
   /// See also [AddNewBlogControllerImpl].
   AddNewBlogControllerImplProvider({
     required AddNewBlogNavigationService navigationService,
-    required AuthBloc authBloc,
   }) : this._internal(
          () =>
-             AddNewBlogControllerImpl()
-               ..navigationService = navigationService
-               ..authBloc = authBloc,
+             AddNewBlogControllerImpl()..navigationService = navigationService,
          from: addNewBlogControllerImplProvider,
          name: r'addNewBlogControllerImplProvider',
          debugGetCreateSourceHash:
@@ -112,7 +102,6 @@ class AddNewBlogControllerImplProvider
          allTransitiveDependencies:
              AddNewBlogControllerImplFamily._allTransitiveDependencies,
          navigationService: navigationService,
-         authBloc: authBloc,
        );
 
   AddNewBlogControllerImplProvider._internal(
@@ -123,20 +112,15 @@ class AddNewBlogControllerImplProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.navigationService,
-    required this.authBloc,
   }) : super.internal();
 
   final AddNewBlogNavigationService navigationService;
-  final AuthBloc authBloc;
 
   @override
   AddNewBlogModel runNotifierBuild(
     covariant AddNewBlogControllerImpl notifier,
   ) {
-    return notifier.build(
-      navigationService: navigationService,
-      authBloc: authBloc,
-    );
+    return notifier.build(navigationService: navigationService);
   }
 
   @override
@@ -144,17 +128,13 @@ class AddNewBlogControllerImplProvider
     return ProviderOverride(
       origin: this,
       override: AddNewBlogControllerImplProvider._internal(
-        () =>
-            create()
-              ..navigationService = navigationService
-              ..authBloc = authBloc,
+        () => create()..navigationService = navigationService,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         navigationService: navigationService,
-        authBloc: authBloc,
       ),
     );
   }
@@ -168,15 +148,13 @@ class AddNewBlogControllerImplProvider
   @override
   bool operator ==(Object other) {
     return other is AddNewBlogControllerImplProvider &&
-        other.navigationService == navigationService &&
-        other.authBloc == authBloc;
+        other.navigationService == navigationService;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
-    hash = _SystemHash.combine(hash, authBloc.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -188,9 +166,6 @@ mixin AddNewBlogControllerImplRef
     on AutoDisposeNotifierProviderRef<AddNewBlogModel> {
   /// The parameter `navigationService` of this provider.
   AddNewBlogNavigationService get navigationService;
-
-  /// The parameter `authBloc` of this provider.
-  AuthBloc get authBloc;
 }
 
 class _AddNewBlogControllerImplProviderElement
@@ -205,9 +180,6 @@ class _AddNewBlogControllerImplProviderElement
   @override
   AddNewBlogNavigationService get navigationService =>
       (origin as AddNewBlogControllerImplProvider).navigationService;
-  @override
-  AuthBloc get authBloc =>
-      (origin as AddNewBlogControllerImplProvider).authBloc;
 }
 
 // ignore_for_file: type=lint

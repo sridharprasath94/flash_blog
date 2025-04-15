@@ -12,7 +12,6 @@ class AddNewBlogControllerImpl extends _$AddNewBlogControllerImpl
   @override
   AddNewBlogModel build({
     required final AddNewBlogNavigationService navigationService,
-    required final AuthBloc authBloc,
   }) {
     ref.onDispose(dispose);
     return const AddNewBlogModel(

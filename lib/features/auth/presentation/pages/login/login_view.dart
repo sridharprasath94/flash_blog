@@ -16,6 +16,8 @@ abstract class LoginController {
   void tapSignUpText();
 
   void tapSignInButton();
+
+  void onLoginSuccess();
 }
 
 class LoginView extends StatelessWidget {
@@ -42,6 +44,7 @@ class LoginView extends StatelessWidget {
               break;
             case LoggedIn(:final User user):
               showSnackBar(context, user.toString());
+              controller.onLoginSuccess();
               break;
             default:
               break;

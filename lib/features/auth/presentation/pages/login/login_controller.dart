@@ -48,4 +48,9 @@ class LoginControllerImpl extends _$LoginControllerImpl
       ),
     );
   }
+
+  @override
+  void onLoginSuccess() {
+    navigationService.navigateToBlogHomeView();
+  }
 }

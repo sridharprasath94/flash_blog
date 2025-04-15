@@ -91,7 +91,6 @@ class AddNewBlogRoute extends GoRouteData {
           final AddNewBlogControllerImplProvider
           addNewBlogControllerImplProvider = AddNewBlogControllerImplProvider(
             navigationService: ref.watch(goRouterNavigationServiceProvider),
-            authBloc: context.read<AuthBloc>(),
           );
           return AddNewBlogView(
             formKey: GlobalKey<FormState>(),
