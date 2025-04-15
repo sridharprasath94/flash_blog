@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flash_blog/core/common/cubits/app_user_cubit.dart';
 import 'package:flash_blog/core/theme/theme.dart';
-import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart'
+import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart'
     hide Initial;
 import 'package:flash_blog/init_dependencies.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service_provider.dart';

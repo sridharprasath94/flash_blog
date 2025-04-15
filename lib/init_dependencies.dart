@@ -7,7 +7,7 @@ import 'package:flash_blog/features/auth/domain/usecases/current_user.dart';
 import 'package:flash_blog/features/auth/domain/usecases/user_login.dart';
 import 'package:flash_blog/features/auth/domain/usecases/user_signout.dart';
 import 'package:flash_blog/features/auth/domain/usecases/user_signup.dart';
-import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

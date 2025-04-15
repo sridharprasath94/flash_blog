@@ -1,4 +1,4 @@
-import 'package:flash_blog/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_model.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_navigation_service.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_view.dart';

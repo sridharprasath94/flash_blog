@@ -15,7 +15,7 @@ part 'auth_event.dart';
 
 part 'auth_state.dart';
 
-part '../../../../../generated/features/auth/presentation/bloc/auth/auth_bloc.freezed.dart';
+part '../../../../generated/features/auth/presentation/bloc/auth/auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserSignup _userSignup;
