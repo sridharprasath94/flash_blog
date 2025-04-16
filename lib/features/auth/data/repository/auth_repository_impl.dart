@@ -15,7 +15,7 @@ class AuthRepositoryImpl implements AuthRepository {
   TaskEither<Failure, User> currentUser() => TaskEither<Failure, User>.Do((
     final Future<A> Function<A>(TaskEither<Failure, A>) $,
   ) async {
-    final Session session = await $(
+    final Session _ = await $(
       TaskEither<Failure, Session>.fromNullable(
         authRemoteDataSource.currentUserSession,
         () => Failure('User not logged in!'),
@@ -23,9 +23,14 @@ class AuthRepositoryImpl implements AuthRepository {
     );
 
     final UserModel user = await $(
-      TaskEither<Failure, UserModel>.fromNullable(
-        await authRemoteDataSource.getCurrentUserData(),
-        () => Failure('User not logged in!'),
+      TaskEither<Failure, UserModel?>.tryCatch(
+        authRemoteDataSource.getCurrentUserData,
+        (final Object e, _) => Failure(e.toString()),
+      ).flatMap(
+        (final UserModel? user) => TaskEither<Failure, UserModel>.fromNullable(
+          user,
+          () => Failure('User not logged in!'),
+        ),
       ),
     );
     return user;

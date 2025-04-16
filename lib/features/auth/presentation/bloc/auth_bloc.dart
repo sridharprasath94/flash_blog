@@ -96,6 +96,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await _currentUser(NoParams())
         .match(
           (final failures.Failure failure) {
+            debugPrint('Auth IsLogin Failure: ${failure.message}');
             _appUserCubit.updateUser(null);
           },
           (final User user) {
