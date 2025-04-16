@@ -19,15 +19,5 @@ GoRouter goRouter(final Ref ref) => GoRouter(
     LoggedOut() => loginRoute,
     AppUserState() => null,
   },
-  redirect: (final BuildContext context, final GoRouterState state) {
-    final bool isLoggedIn = context.watch<AppUserCubit>().state is LoggedIn;
-    final bool isLoginPage = state.matchedLocation == loginRoute;
-    final bool isSignUpPage = state.matchedLocation == signUpRoute;
-
-    if (isLoggedIn && (isLoginPage || isSignUpPage)) {
-      return blogHomeRoute;
-    }
-    return null;
-  },
   navigatorKey: NavigationService.navigatorKey,
 );
