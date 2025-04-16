@@ -21,12 +21,19 @@ void main() async {
   }
   runApp(
     ProviderScope(
-      child: MultiBlocProvider(
+      child: MultiRepositoryProvider(
         providers: <SingleChildWidget>[
           BlocProvider<AppUserCubit>(
-            create: (_) => serviceLocator<AppUserCubit>(),
+            create:
+                (final BuildContext context) => serviceLocator<AppUserCubit>(),
           ),
-          BlocProvider<AuthBloc>(create: (_) => serviceLocator<AuthBloc>()),
+          BlocProvider<AuthBloc>(
+            lazy: false,
+            create:
+                (final BuildContext context) =>
+                    serviceLocator<AuthBloc>()
+                      ..add(const AuthEvent.isLoggedIn()),
+          ),
         ],
         child: const MyApp(),
       ),
@@ -45,8 +52,15 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
-    context.read<AuthBloc>().add(const AuthEvent.isLoggedIn());
   }
+
+  // @override
+  // Widget build(final BuildContext context) => MaterialApp.router(
+  //   debugShowCheckedModeBanner: false,
+  //   title: 'Blog App',
+  //   theme: AppTheme.darkThemeMode,
+  //   routerConfig: ref.read(goRouterProvider),
+  // );
 
   @override
   Widget build(final BuildContext context) =>
@@ -56,6 +70,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           if (appUserState is Initial) {
             return const Center(child: CircularProgressIndicator());
           }
+          debugPrint('AppUserState: $appUserState');
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: 'Blog App',
