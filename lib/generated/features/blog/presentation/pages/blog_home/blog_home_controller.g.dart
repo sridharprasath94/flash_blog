@@ -7,7 +7,7 @@ part of '../../../../../../features/blog/presentation/pages/blog_home/blog_home_
 // **************************************************************************
 
 String _$blogHomeControllerImplHash() =>
-    r'd71a40864832f7a471baf8c7d9174c3676df4626';
+    r'ffb1f0a08f5eced8a980c091e311554212a0f138';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,10 +34,12 @@ abstract class _$BlogHomeControllerImpl
     extends BuildlessAutoDisposeNotifier<BlogHomeModel> {
   late final BlogHomeNavigationService navigationService;
   late final AuthBloc authBloc;
+  late final User user;
 
   BlogHomeModel build({
     required BlogHomeNavigationService navigationService,
     required AuthBloc authBloc,
+    required User user,
   });
 }
 
@@ -54,10 +56,12 @@ class BlogHomeControllerImplFamily extends Family<BlogHomeModel> {
   BlogHomeControllerImplProvider call({
     required BlogHomeNavigationService navigationService,
     required AuthBloc authBloc,
+    required User user,
   }) {
     return BlogHomeControllerImplProvider(
       navigationService: navigationService,
       authBloc: authBloc,
+      user: user,
     );
   }
 
@@ -68,6 +72,7 @@ class BlogHomeControllerImplFamily extends Family<BlogHomeModel> {
     return call(
       navigationService: provider.navigationService,
       authBloc: provider.authBloc,
+      user: provider.user,
     );
   }
 
@@ -94,11 +99,13 @@ class BlogHomeControllerImplProvider
   BlogHomeControllerImplProvider({
     required BlogHomeNavigationService navigationService,
     required AuthBloc authBloc,
+    required User user,
   }) : this._internal(
          () =>
              BlogHomeControllerImpl()
                ..navigationService = navigationService
-               ..authBloc = authBloc,
+               ..authBloc = authBloc
+               ..user = user,
          from: blogHomeControllerImplProvider,
          name: r'blogHomeControllerImplProvider',
          debugGetCreateSourceHash:
@@ -110,6 +117,7 @@ class BlogHomeControllerImplProvider
              BlogHomeControllerImplFamily._allTransitiveDependencies,
          navigationService: navigationService,
          authBloc: authBloc,
+         user: user,
        );
 
   BlogHomeControllerImplProvider._internal(
@@ -121,16 +129,19 @@ class BlogHomeControllerImplProvider
     required super.from,
     required this.navigationService,
     required this.authBloc,
+    required this.user,
   }) : super.internal();
 
   final BlogHomeNavigationService navigationService;
   final AuthBloc authBloc;
+  final User user;
 
   @override
   BlogHomeModel runNotifierBuild(covariant BlogHomeControllerImpl notifier) {
     return notifier.build(
       navigationService: navigationService,
       authBloc: authBloc,
+      user: user,
     );
   }
 
@@ -142,7 +153,8 @@ class BlogHomeControllerImplProvider
         () =>
             create()
               ..navigationService = navigationService
-              ..authBloc = authBloc,
+              ..authBloc = authBloc
+              ..user = user,
         from: from,
         name: null,
         dependencies: null,
@@ -150,6 +162,7 @@ class BlogHomeControllerImplProvider
         debugGetCreateSourceHash: null,
         navigationService: navigationService,
         authBloc: authBloc,
+        user: user,
       ),
     );
   }
@@ -164,7 +177,8 @@ class BlogHomeControllerImplProvider
   bool operator ==(Object other) {
     return other is BlogHomeControllerImplProvider &&
         other.navigationService == navigationService &&
-        other.authBloc == authBloc;
+        other.authBloc == authBloc &&
+        other.user == user;
   }
 
   @override
@@ -172,6 +186,7 @@ class BlogHomeControllerImplProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
     hash = _SystemHash.combine(hash, authBloc.hashCode);
+    hash = _SystemHash.combine(hash, user.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -186,6 +201,9 @@ mixin BlogHomeControllerImplRef
 
   /// The parameter `authBloc` of this provider.
   AuthBloc get authBloc;
+
+  /// The parameter `user` of this provider.
+  User get user;
 }
 
 class _BlogHomeControllerImplProviderElement
@@ -202,6 +220,8 @@ class _BlogHomeControllerImplProviderElement
       (origin as BlogHomeControllerImplProvider).navigationService;
   @override
   AuthBloc get authBloc => (origin as BlogHomeControllerImplProvider).authBloc;
+  @override
+  User get user => (origin as BlogHomeControllerImplProvider).user;
 }
 
 // ignore_for_file: type=lint

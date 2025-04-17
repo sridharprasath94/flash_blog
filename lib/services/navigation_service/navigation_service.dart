@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flash_blog/core/common/entities/user.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_navigation_service.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_navigation_service.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_navigation_service.dart';
@@ -52,9 +53,9 @@ class NavigationService
   }
 
   @override
-  void navigateToAddNewBlogView() {
+  void navigateToAddNewBlogView(final User user) {
     debugPrint('Navigating to Add New Blog View');
-    unawaited(goRouter.push(addNewBlogRoute));
+    unawaited(goRouter.push(addNewBlogRoute, extra: user));
   }
 
   @override

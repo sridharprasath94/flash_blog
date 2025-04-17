@@ -84,18 +84,21 @@ RouteBase get $addNewBlogRoute => GoRouteData.$route(
 );
 
 extension $AddNewBlogRouteExtension on AddNewBlogRoute {
-  static AddNewBlogRoute _fromState(GoRouterState state) => AddNewBlogRoute();
+  static AddNewBlogRoute _fromState(GoRouterState state) =>
+      AddNewBlogRoute(state.extra as User);
 
   String get location => GoRouteData.$location('/addNewBlog');
 
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: $extra);
 
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
 
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: $extra);
 
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
 
 RouteBase get $splashRoute => GoRouteData.$route(

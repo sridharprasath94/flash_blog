@@ -1,12 +1,17 @@
-import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:flash_blog/core/common/cubits/app_user_cubit.dart';
+import 'package:flash_blog/core/common/entities/user.dart';
+import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart'
+    hide LoggedIn;
 import 'package:flash_blog/features/auth/presentation/pages/login/login_controller.dart';
 import 'package:flash_blog/features/auth/presentation/pages/login/login_view.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_controller.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_view.dart';
+import 'package:flash_blog/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_controller.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_view.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_controller.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_view.dart';
+import 'package:flash_blog/init_dependencies.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,6 +77,7 @@ class BlogHomeRoute extends GoRouteData {
               BlogHomeControllerImplProvider(
                 navigationService: ref.watch(goRouterNavigationServiceProvider),
                 authBloc: context.read<AuthBloc>(),
+                user:(serviceLocator<AppUserCubit>().state as LoggedIn).user,
               );
           return BlogHomeView(
             formKey: GlobalKey<FormState>(),
@@ -84,6 +90,10 @@ class BlogHomeRoute extends GoRouteData {
 
 @TypedGoRoute<AddNewBlogRoute>(path: addNewBlogRoute)
 class AddNewBlogRoute extends GoRouteData {
+  final User $extra;
+
+  AddNewBlogRoute(this.$extra);
+
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
       Consumer(
@@ -91,6 +101,8 @@ class AddNewBlogRoute extends GoRouteData {
           final AddNewBlogControllerImplProvider
           addNewBlogControllerImplProvider = AddNewBlogControllerImplProvider(
             navigationService: ref.watch(goRouterNavigationServiceProvider),
+            blogBloc: context.read<BlogBloc>(),
+            posterId: $extra.id,
           );
           return AddNewBlogView(
             formKey: GlobalKey<FormState>(),

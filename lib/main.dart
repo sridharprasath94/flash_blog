@@ -5,6 +5,7 @@ import 'package:flash_blog/core/common/cubits/app_user_cubit.dart';
 import 'package:flash_blog/core/theme/theme.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart'
     hide Initial, LoggedIn;
+import 'package:flash_blog/features/blog/presentation/bloc/blog_bloc.dart' hide Initial;
 import 'package:flash_blog/init_dependencies.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service_provider.dart';
@@ -35,6 +36,11 @@ void main() async {
                 (final BuildContext context) =>
                     serviceLocator<AuthBloc>()
                       ..add(const AuthEvent.isLoggedIn()),
+          ),
+          BlocProvider<BlogBloc>(
+            create:
+                (final BuildContext context) =>
+            serviceLocator<BlogBloc>(),
           ),
         ],
         child: const MyApp(),

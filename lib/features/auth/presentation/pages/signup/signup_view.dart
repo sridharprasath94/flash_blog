@@ -17,6 +17,8 @@ abstract class SignupController {
   void tapSignInText();
 
   void tapSignUpButton();
+
+  void onSignupSuccess();
 }
 
 class SignupView extends StatelessWidget {
@@ -44,6 +46,7 @@ class SignupView extends StatelessWidget {
               break;
             case LoggedIn(:final User user):
               showSnackBar(context, user.toString());
+              controller.onSignupSuccess();
               break;
             default:
               break;

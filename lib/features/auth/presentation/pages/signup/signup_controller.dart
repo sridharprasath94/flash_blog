@@ -51,4 +51,9 @@ class SignupControllerImpl extends _$SignupControllerImpl
       ),
     );
   }
+
+  @override
+  void onSignupSuccess() {
+    navigationService.navigateToBlogHomeView();
+  }
 }

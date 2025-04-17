@@ -1,3 +1,4 @@
+import 'package:flash_blog/core/common/entities/user.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_model.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_navigation_service.dart';
@@ -13,6 +14,7 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
   BlogHomeModel build({
     required final BlogHomeNavigationService navigationService,
     required final AuthBloc authBloc,
+    required final User user,
   }) {
     ref.onDispose(dispose);
     return const BlogHomeModel(isLoading: false);
@@ -32,7 +34,7 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
 
   @override
   void tapAddNewBlogButton() {
-    navigationService.navigateToAddNewBlogView();
+    navigationService.navigateToAddNewBlogView(user);
   }
 
   @override

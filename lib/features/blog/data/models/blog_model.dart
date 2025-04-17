@@ -9,13 +9,12 @@ part '../../../../generated/features/blog/data/models/blog_model.freezed.dart';
 abstract class BlogModel with _$BlogModel implements Blog {
   const factory BlogModel({
     required final String id,
-    required final String posterId,
+    @JsonKey(name: 'poster_id') required final String posterId,
     required final String title,
     required final String content,
-    required final String imageUrl,
+    @JsonKey(name: 'image_url')required final String imageUrl,
     required final List<String> topics,
-    required final DateTime updatedAt,
-    final String? posterName,
+    @JsonKey(name: 'updated_at') required final DateTime updatedAt,
   }) = _BlogModel;
 
   @override
