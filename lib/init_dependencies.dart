@@ -11,6 +11,7 @@ import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flash_blog/features/blog/data/data_sources/blog_remote_data_source.dart';
 import 'package:flash_blog/features/blog/data/repository/blog_repository_impl.dart';
 import 'package:flash_blog/features/blog/domain/repository/blog_repository.dart';
+import 'package:flash_blog/features/blog/domain/usecases/delete_blog.dart';
 import 'package:flash_blog/features/blog/domain/usecases/get_all_blogs.dart';
 import 'package:flash_blog/features/blog/domain/usecases/upload_blog.dart';
 import 'package:flash_blog/features/blog/presentation/bloc/blog_bloc.dart';
@@ -73,32 +74,22 @@ void _initBlog() {
   // Datasource
   serviceLocator
     ..registerFactory<BlogRemoteDataSource>(
-          () => BlogRemoteDataSourceImpl(
-        serviceLocator(),
-      ),
+      () => BlogRemoteDataSourceImpl(serviceLocator()),
     )
-  // Repository
+    // Repository
     ..registerFactory<BlogRepository>(
-          () => BlogRepositoryImpl(
-        serviceLocator(),
-      ),
+      () => BlogRepositoryImpl(serviceLocator()),
     )
-  // Usecases
-    ..registerFactory(
-          () => UploadBlog(
-        serviceLocator(),
-      ),
-    )
-    ..registerFactory(
-          () => GetAllBlogs(
-        serviceLocator(),
-      ),
-    )
-  // Bloc
+    // Usecases
+    ..registerFactory(() => UploadBlog(serviceLocator()))
+    ..registerFactory(() => GetAllBlogs(serviceLocator()))
+    ..registerFactory(() => DeleteBlog(serviceLocator()))
+    // Bloc
     ..registerLazySingleton(
-          () => BlogBloc(
+      () => BlogBloc(
         uploadBlog: serviceLocator(),
         getAllBlogs: serviceLocator(),
+        deleteBlog: serviceLocator(),
       ),
     );
 }

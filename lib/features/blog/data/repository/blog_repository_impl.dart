@@ -61,4 +61,11 @@ class BlogRepositoryImpl implements BlogRepository {
         return blogs;
         // ignore: require_trailing_commas
       }, (final Object error, _) => Failure(error.toString()));
+
+  @override
+  TaskEither<Failure, Unit> deleteBlog({required final String posterId}) =>
+      TaskEither<Failure, Unit>.tryCatch(() async {
+        await blogRemoteDataSource.deleteBlog(posterId);
+        return unit;
+      }, (final Object error, _) => Failure(error.toString()));
 }

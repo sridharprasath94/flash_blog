@@ -19,6 +19,8 @@ abstract class BlogHomeController {
   void tapBackButton();
 
   void onTapBlogCard(final Blog blog);
+
+  void onTapDeleteBlogCard(final Blog blog);
 }
 
 class BlogHomeView extends StatelessWidget {
@@ -70,6 +72,10 @@ class BlogHomeView extends StatelessWidget {
               if (state is blog.Failure) {
                 showSnackBar(context, state.message);
               }
+
+              if (state is blog.DeleteSuccess) {
+                showSnackBar(context, 'Blog deleted successfully');
+              }
             },
             builder: (final BuildContext context, final blog.BlogState state) {
               if (state is blog.Loading) {
@@ -87,6 +93,7 @@ class BlogHomeView extends StatelessWidget {
                               ? AppPalette.gradient1
                               : AppPalette.gradient2,
                       onTap: () => controller.onTapBlogCard(blog),
+                      onLongPress: () => controller.onTapDeleteBlogCard(blog),
                     );
                   },
                 );

@@ -187,6 +187,72 @@ String toString() {
 
 
 /// @nodoc
+
+
+class _DeleteBlog implements BlogEvent {
+  const _DeleteBlog({required this.posterId});
+  
+
+ final  String posterId;
+
+/// Create a copy of BlogEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DeleteBlogCopyWith<_DeleteBlog> get copyWith => __$DeleteBlogCopyWithImpl<_DeleteBlog>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeleteBlog&&(identical(other.posterId, posterId) || other.posterId == posterId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,posterId);
+
+@override
+String toString() {
+  return 'BlogEvent.deleteBlog(posterId: $posterId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$DeleteBlogCopyWith<$Res> implements $BlogEventCopyWith<$Res> {
+  factory _$DeleteBlogCopyWith(_DeleteBlog value, $Res Function(_DeleteBlog) _then) = __$DeleteBlogCopyWithImpl;
+@useResult
+$Res call({
+ String posterId
+});
+
+
+
+
+}
+/// @nodoc
+class __$DeleteBlogCopyWithImpl<$Res>
+    implements _$DeleteBlogCopyWith<$Res> {
+  __$DeleteBlogCopyWithImpl(this._self, this._then);
+
+  final _DeleteBlog _self;
+  final $Res Function(_DeleteBlog) _then;
+
+/// Create a copy of BlogEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? posterId = null,}) {
+  return _then(_DeleteBlog(
+posterId: null == posterId ? _self.posterId : posterId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$BlogState {
 
 
@@ -449,5 +515,37 @@ as List<Blog>,
 
 
 }
+
+/// @nodoc
+
+
+class DeleteSuccess implements BlogState {
+  const DeleteSuccess();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteSuccess);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'BlogState.deleteSuccess()';
+}
+
+
+}
+
+
+
 
 // dart format on

@@ -11,4 +11,7 @@ class BlogEvent with _$BlogEvent {
     required final List<String> topics,
   }) = _UploadBlog;
   const factory BlogEvent.fetchAllBlogs() = _FetchAllBlogs;
+  const factory BlogEvent.deleteBlog({
+    required final String posterId,
+  }) = _DeleteBlog;
 }

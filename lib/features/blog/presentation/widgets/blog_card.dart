@@ -6,17 +6,20 @@ class BlogCard extends StatelessWidget {
   final Blog blog;
   final Color color;
   final VoidCallback onTap;
+  final VoidCallback onLongPress;
 
   const BlogCard({
     super.key,
     required this.blog,
     required this.color,
     required this.onTap,
+    required this.onLongPress,
   });
 
   @override
   Widget build(final BuildContext context) => GestureDetector(
     onTap: onTap,
+    onLongPress: onLongPress,
     child: Container(
       height: 200,
       margin: const EdgeInsets.all(16).copyWith(bottom: 4),

@@ -54,4 +54,10 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
   void onTapBlogCard(final Blog blog) {
     navigationService.navigateToBlogViewerView(blog);
   }
+
+  @override
+  void onTapDeleteBlogCard(final Blog blog) {
+    blogBloc..add(BlogEvent.deleteBlog(posterId: blog.id))
+    ..add(const BlogEvent.fetchAllBlogs());
+  }
 }

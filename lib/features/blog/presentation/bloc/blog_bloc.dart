@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flash_blog/core/error/failures.dart' as failures;
 import 'package:flash_blog/core/usecase/usecase.dart';
 import 'package:flash_blog/features/blog/domain/entities/blog.dart';
+import 'package:flash_blog/features/blog/domain/usecases/delete_blog.dart';
 import 'package:flash_blog/features/blog/domain/usecases/get_all_blogs.dart';
 import 'package:flash_blog/features/blog/domain/usecases/upload_blog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,12 +18,15 @@ part 'blog_state.dart';
 class BlogBloc extends Bloc<BlogEvent, BlogState> {
   final UploadBlog _uploadBlog;
   final GetAllBlogs _getAllBlogs;
+  final DeleteBlog _deleteBlog;
 
   BlogBloc({
     required final UploadBlog uploadBlog,
     required final GetAllBlogs getAllBlogs,
+    required final DeleteBlog deleteBlog,
   }) : _uploadBlog = uploadBlog,
        _getAllBlogs = getAllBlogs,
+       _deleteBlog = deleteBlog,
        super(const BlogState.initial()) {
     on<BlogEvent>(
       (final BlogEvent event, final Emitter<BlogState> emit) =>
@@ -30,6 +34,7 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
     );
     on<_UploadBlog>(_onBlogUpload);
     on<_FetchAllBlogs>(_onFetchAllBlogs);
+    on<_DeleteBlog>(_onDeleteBlog);
   }
 
   Future<void> _onBlogUpload(
@@ -67,6 +72,22 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
           },
           (final List<Blog> blogs) {
             emit(FetchSuccess(blogs));
+          },
+        )
+        .run();
+  }
+
+  Future<void> _onDeleteBlog(
+    final _DeleteBlog event,
+    final Emitter<BlogState> emit,
+  ) async {
+    await _deleteBlog(event.posterId)
+        .match(
+          (final failures.Failure failure) {
+            emit(Failure(failure.message));
+          },
+          (_) {
+            emit(const DeleteSuccess());
           },
         )
         .run();

@@ -14,4 +14,8 @@ abstract interface class BlogRepository {
   });
 
   TaskEither<Failure, List<Blog>> getAllBlogs();
+
+  TaskEither<Failure, Unit> deleteBlog({
+    required final String posterId,
+  });
 }

@@ -14,6 +14,8 @@ abstract interface class BlogRemoteDataSource {
   });
 
   Future<List<BlogModel>> getAllBlogs();
+
+  Future<void> deleteBlog(final String posterId);
 }
 
 class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
@@ -76,6 +78,22 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
       throw ServerException(e.message);
     } catch (e) {
       debugPrint('Error fetching blogs: $e');
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> deleteBlog(final String posterId) async {
+    try {
+      await supabaseClient.from('blogs').delete().eq('id', posterId);
+      await supabaseClient.storage.from('blog_images').remove(<String>[
+        posterId,
+      ]);
+    } on PostgrestException catch (e) {
+      debugPrint('Error deleting blog: ${e.message}');
+      throw ServerException(e.message);
+    } catch (e) {
+      debugPrint('Error deleting blog: $e');
       throw ServerException(e.toString());
     }
   }

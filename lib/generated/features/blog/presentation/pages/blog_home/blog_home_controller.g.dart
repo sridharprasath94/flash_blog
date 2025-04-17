@@ -7,7 +7,7 @@ part of '../../../../../../features/blog/presentation/pages/blog_home/blog_home_
 // **************************************************************************
 
 String _$blogHomeControllerImplHash() =>
-    r'6c8917339498c613ae2f32a1b5d6f69c0559b1d5';
+    r'0a6fe866b79b1a1d00ef248e2844d2ce3fc566fb';
 
 /// Copied from Dart SDK
 class _SystemHash {
