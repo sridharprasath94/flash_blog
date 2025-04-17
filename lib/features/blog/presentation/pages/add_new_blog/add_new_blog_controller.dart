@@ -63,9 +63,9 @@ class AddNewBlogControllerImpl extends _$AddNewBlogControllerImpl
             (final Exception error) {
               debugPrint('Error selecting image: $error');
             },
-            (final File image) {
+            (final Option<File> image) {
               debugPrint('Image selected: $image');
-              state = state.copyWith(image: Some<File>(image));
+              state = state.copyWith(image: image);
             },
           )
           .run(),

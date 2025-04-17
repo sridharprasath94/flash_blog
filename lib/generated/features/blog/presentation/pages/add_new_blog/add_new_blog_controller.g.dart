@@ -7,7 +7,7 @@ part of '../../../../../../features/blog/presentation/pages/add_new_blog/add_new
 // **************************************************************************
 
 String _$addNewBlogControllerImplHash() =>
-    r'4b51e592b42517098716071a5f9993e63fdcfb49';
+    r'46b405343931b780b963e606dfec32622f97cf5b';
 
 /// Copied from Dart SDK
 class _SystemHash {
