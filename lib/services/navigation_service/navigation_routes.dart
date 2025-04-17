@@ -1,4 +1,3 @@
-import 'package:flash_blog/core/common/cubits/app_user_cubit.dart';
 import 'package:flash_blog/core/common/entities/user.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart'
     hide LoggedIn;
@@ -6,11 +5,13 @@ import 'package:flash_blog/features/auth/presentation/pages/login/login_controll
 import 'package:flash_blog/features/auth/presentation/pages/login/login_view.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_controller.dart';
 import 'package:flash_blog/features/auth/presentation/pages/signup/signup_view.dart';
+import 'package:flash_blog/features/blog/domain/entities/blog.dart';
 import 'package:flash_blog/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_controller.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_view.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_controller.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_view.dart';
+import 'package:flash_blog/features/blog/presentation/pages/blog_viewer/blog_viewer_view.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,7 @@ const String loginRoute = '/login';
 const String splashRoute = '/splash';
 const String blogHomeRoute = '/blogHome';
 const String addNewBlogRoute = '/addNewBlog';
+const String blogViewerRoute = '/blogViewer';
 
 @TypedGoRoute<SignUpRoute>(path: signUpRoute)
 class SignUpRoute extends GoRouteData {
@@ -110,6 +112,17 @@ class AddNewBlogRoute extends GoRouteData {
           );
         },
       );
+}
+
+@TypedGoRoute<BlogViewerRoute>(path: blogViewerRoute)
+class BlogViewerRoute extends GoRouteData {
+  final Blog $extra;
+
+  BlogViewerRoute(this.$extra);
+
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) =>
+      BlogViewerView(blog: $extra);
 }
 
 @TypedGoRoute<SplashRoute>(path: splashRoute)

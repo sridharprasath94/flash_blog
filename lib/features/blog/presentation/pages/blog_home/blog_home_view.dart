@@ -18,7 +18,7 @@ abstract class BlogHomeController {
 
   void tapBackButton();
 
-  void tapUploadButton();
+  void onTapBlogCard(final Blog blog);
 }
 
 class BlogHomeView extends StatelessWidget {
@@ -86,7 +86,7 @@ class BlogHomeView extends StatelessWidget {
                           index.isEven
                               ? AppPalette.gradient1
                               : AppPalette.gradient2,
-                      onTap: () {},
+                      onTap: () => controller.onTapBlogCard(blog),
                     );
                   },
                 );

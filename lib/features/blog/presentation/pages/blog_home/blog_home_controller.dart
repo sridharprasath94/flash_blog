@@ -21,7 +21,8 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
     required final AuthBloc authBloc,
     required final BlogBloc blogBloc,
   }) {
-    scheduleMicrotask(init);
+   scheduleMicrotask(init);
+    ref.onResume(init);
     ref.onDispose(dispose);
     return const BlogHomeModel(isLoading: false, blogs: <Blog>[]);
   }
@@ -38,11 +39,6 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
   }
 
   @override
-  void tapUploadButton() {
-    // TODO: implement tapUploadButton
-  }
-
-  @override
   void tapAddNewBlogButton() {
     navigationService.navigateToAddNewBlogView((serviceLocator<AppUserCubit>().state as LoggedIn).user);
   }
@@ -50,5 +46,10 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
   @override
   void tapLogoutButton() {
     authBloc.add(const AuthEvent.signOut());
+  }
+
+  @override
+  void onTapBlogCard(final Blog blog) {
+    navigationService.navigateToBlogViewerView(blog);
   }
 }

@@ -11,6 +11,7 @@ List<RouteBase> get $appRoutes => [
   $loginRoute,
   $blogHomeRoute,
   $addNewBlogRoute,
+  $blogViewerRoute,
   $splashRoute,
 ];
 
@@ -88,6 +89,30 @@ extension $AddNewBlogRouteExtension on AddNewBlogRoute {
       AddNewBlogRoute(state.extra as User);
 
   String get location => GoRouteData.$location('/addNewBlog');
+
+  void go(BuildContext context) => context.go(location, extra: $extra);
+
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
+}
+
+RouteBase get $blogViewerRoute => GoRouteData.$route(
+  path: '/blogViewer',
+
+  factory: $BlogViewerRouteExtension._fromState,
+);
+
+extension $BlogViewerRouteExtension on BlogViewerRoute {
+  static BlogViewerRoute _fromState(GoRouterState state) =>
+      BlogViewerRoute(state.extra as Blog);
+
+  String get location => GoRouteData.$location('/blogViewer');
 
   void go(BuildContext context) => context.go(location, extra: $extra);
 
