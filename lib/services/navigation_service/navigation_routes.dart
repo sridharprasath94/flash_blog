@@ -11,7 +11,6 @@ import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_view.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_controller.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_view.dart';
-import 'package:flash_blog/init_dependencies.dart';
 import 'package:flash_blog/services/navigation_service/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,7 +77,6 @@ class BlogHomeRoute extends GoRouteData {
                 navigationService: ref.watch(goRouterNavigationServiceProvider),
                 authBloc: context.read<AuthBloc>(),
                 blogBloc: context.read<BlogBloc>(),
-                user:(serviceLocator<AppUserCubit>().state as LoggedIn).user,
               );
           return BlogHomeView(
             formKey: GlobalKey<FormState>(),
