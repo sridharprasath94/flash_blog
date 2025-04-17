@@ -122,34 +122,69 @@ class AddNewBlogView extends StatelessWidget {
                   const SizedBox(height: 20),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children:
-                          Constants.topics
-                              .map(
-                                (final String topic) => Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: GestureDetector(
-                                    onTap:
-                                        () => controller.onSelectTopic(topic),
-                                    child: Chip(
-                                      label: Text(topic),
-                                      color:
-                                          model.selectedTopics.contains(topic)
-                                              ? const WidgetStatePropertyAll<
-                                                Color?
-                                              >(AppPalette.gradient1)
-                                              : null,
-                                      side:
-                                          model.selectedTopics.contains(topic)
-                                              ? null
-                                              : const BorderSide(
-                                                color: AppPalette.borderColor,
+                    child: FormField<List<String>>(
+                      validator: (final List<String>? value) {
+                        if (model.selectedTopics.isEmpty) {
+                          return 'Please select at least one topic';
+                        }
+                        return null;
+                      },
+                      builder:
+                          (
+                            final FormFieldState<List<String>> formFieldState,
+                          ) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Wrap(
+                                children:
+                                    Constants.topics
+                                        .map(
+                                          (final String topic) => Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                controller.onSelectTopic(topic);
+                                                formFieldState.didChange(
+                                                  model.selectedTopics,
+                                                );
+                                              },
+                                              child: Chip(
+                                                label: Text(topic),
+                                                color:
+                                                    model.selectedTopics
+                                                            .contains(topic)
+                                                        ? const WidgetStatePropertyAll<
+                                                          Color?
+                                                        >(AppPalette.gradient1)
+                                                        : null,
+                                                side:
+                                                    model.selectedTopics
+                                                            .contains(topic)
+                                                        ? null
+                                                        : const BorderSide(
+                                                          color:
+                                                              AppPalette
+                                                                  .borderColor,
+                                                        ),
                                               ),
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                              ),
+                              if (formFieldState.hasError)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Text(
+                                    formFieldState.errorText!,
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.error,
                                     ),
                                   ),
                                 ),
-                              )
-                              .toList(),
+                            ],
+                          ),
                     ),
                   ),
                   BlogEditor(
