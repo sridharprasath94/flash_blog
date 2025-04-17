@@ -15,7 +15,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part '../../generated/services/navigation_service/navigation_service.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 NavigationService goRouterNavigationService(final Ref ref) =>
     throw UnimplementedError(
       'goRouterNavigationService should be initialized in the app widget',

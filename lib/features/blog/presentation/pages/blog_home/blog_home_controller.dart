@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flash_blog/core/common/cubits/app_user_cubit.dart';
-import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart' hide LoggedIn;
+import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart'
+    hide LoggedIn;
 import 'package:flash_blog/features/blog/domain/entities/blog.dart';
 import 'package:flash_blog/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_model.dart';
@@ -21,8 +22,7 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
     required final AuthBloc authBloc,
     required final BlogBloc blogBloc,
   }) {
-   scheduleMicrotask(init);
-    ref.onResume(init);
+    scheduleMicrotask(init);
     ref.onDispose(dispose);
     return const BlogHomeModel(isLoading: false, blogs: <Blog>[]);
   }
@@ -40,7 +40,9 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
 
   @override
   void tapAddNewBlogButton() {
-    navigationService.navigateToAddNewBlogView((serviceLocator<AppUserCubit>().state as LoggedIn).user);
+    navigationService.navigateToAddNewBlogView(
+      (serviceLocator<AppUserCubit>().state as LoggedIn).user,
+    );
   }
 
   @override

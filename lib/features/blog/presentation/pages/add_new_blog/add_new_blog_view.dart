@@ -13,8 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class AddNewBlogController {
-  void tapBackButton();
-
   void tapUploadButton();
 
   void onSelectImage();

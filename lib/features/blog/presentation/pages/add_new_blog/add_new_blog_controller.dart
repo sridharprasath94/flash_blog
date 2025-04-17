@@ -38,11 +38,6 @@ class AddNewBlogControllerImpl extends _$AddNewBlogControllerImpl
   }
 
   @override
-  void tapBackButton() {
-    // TODO: implement tapBackButton
-  }
-
-  @override
   void tapUploadButton() {
     state.image.fold(
       () {
@@ -79,7 +74,6 @@ class AddNewBlogControllerImpl extends _$AddNewBlogControllerImpl
         ),
       ),
     );
-    ;
   }
 
   @override
@@ -113,6 +107,8 @@ class AddNewBlogControllerImpl extends _$AddNewBlogControllerImpl
 
   @override
   void onUploadSuccess() {
+    debugPrint('Upload successful');
+    blogBloc.add(const BlogEvent.fetchAllBlogs());
     navigationService.goBack();
   }
 }

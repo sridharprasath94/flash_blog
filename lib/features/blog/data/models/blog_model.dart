@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:flash_blog/features/blog/domain/entities/blog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
