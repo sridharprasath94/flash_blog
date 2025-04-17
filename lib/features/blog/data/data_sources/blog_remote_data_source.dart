@@ -59,11 +59,18 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
     try {
       final PostgrestList blogs = await supabaseClient
           .from('blogs')
-          .select('*, profiles (name)');
-      return blogs.map(BlogModel.fromJson).toList();
+          .select('*, profiles (username)');
+      return blogs.map((final PostgrestMap blog) {
+        final Map<String, dynamic> posterName = blog['profiles'];
+        return BlogModel.fromJson(
+          blog,
+        ).copyWith(posterName: posterName['username']);
+      }).toList();
     } on PostgrestException catch (e) {
+      debugPrint('Error fetching blogs: ${e.message}');
       throw ServerException(e.message);
     } catch (e) {
+      debugPrint('Error fetching blogs: $e');
       throw ServerException(e.toString());
     }
   }

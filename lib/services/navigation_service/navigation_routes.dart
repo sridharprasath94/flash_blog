@@ -77,6 +77,7 @@ class BlogHomeRoute extends GoRouteData {
               BlogHomeControllerImplProvider(
                 navigationService: ref.watch(goRouterNavigationServiceProvider),
                 authBloc: context.read<AuthBloc>(),
+                blogBloc: context.read<BlogBloc>(),
                 user:(serviceLocator<AppUserCubit>().state as LoggedIn).user,
               );
           return BlogHomeView(

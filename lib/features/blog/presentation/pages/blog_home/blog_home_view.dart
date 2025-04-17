@@ -1,6 +1,12 @@
+import 'package:flash_blog/core/common/widgets/loader.dart';
+import 'package:flash_blog/core/theme/app_palette.dart';
 import 'package:flash_blog/core/utils/show_snackbar.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:flash_blog/features/blog/domain/entities/blog.dart';
+import 'package:flash_blog/features/blog/presentation/bloc/blog_bloc.dart'
+    as blog;
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_model.dart';
+import 'package:flash_blog/features/blog/presentation/widgets/blog_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,8 +62,38 @@ class BlogHomeView extends StatelessWidget {
         }
       },
       builder:
-          (final BuildContext context, final AuthState state) =>
-              const Center(child: Text('Logged In')),
+          (
+            final BuildContext context,
+            final AuthState authState,
+          ) => BlocConsumer<blog.BlogBloc, blog.BlogState>(
+            listener: (final BuildContext context, final blog.BlogState state) {
+              if (state is blog.Failure) {
+                showSnackBar(context, state.message);
+              }
+            },
+            builder: (final BuildContext context, final blog.BlogState state) {
+              if (state is blog.Loading) {
+                return const Loader();
+              }
+              if (state is blog.FetchSuccess) {
+                return ListView.builder(
+                  itemCount: state.blogs.length,
+                  itemBuilder: (final BuildContext context, final int index) {
+                    final Blog blog = state.blogs[index];
+                    return BlogCard(
+                      blog: blog,
+                      color:
+                          index.isEven
+                              ? AppPalette.gradient1
+                              : AppPalette.gradient2,
+                      onTap: () {},
+                    );
+                  },
+                );
+              }
+              return const SizedBox();
+            },
+          ),
     ),
   );
 }

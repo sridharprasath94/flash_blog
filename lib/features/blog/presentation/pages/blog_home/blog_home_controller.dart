@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flash_blog/core/common/entities/user.dart';
 import 'package:flash_blog/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:flash_blog/features/blog/domain/entities/blog.dart';
+import 'package:flash_blog/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_model.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_navigation_service.dart';
 import 'package:flash_blog/features/blog/presentation/pages/blog_home/blog_home_view.dart';
@@ -14,10 +18,16 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
   BlogHomeModel build({
     required final BlogHomeNavigationService navigationService,
     required final AuthBloc authBloc,
+    required final BlogBloc blogBloc,
     required final User user,
   }) {
+    scheduleMicrotask(init);
     ref.onDispose(dispose);
-    return const BlogHomeModel(isLoading: false);
+    return const BlogHomeModel(isLoading: false, blogs: <Blog>[]);
+  }
+
+  void init() {
+    blogBloc.add(const BlogEvent.fetchAllBlogs());
   }
 
   void dispose() {}

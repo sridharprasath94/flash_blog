@@ -15,6 +15,7 @@ abstract class BlogModel with _$BlogModel implements Blog {
     @JsonKey(name: 'image_url')required final String imageUrl,
     required final List<String> topics,
     @JsonKey(name: 'updated_at') required final DateTime updatedAt,
+    @JsonKey(name: 'poster_name') final String? posterName,
   }) = _BlogModel;
 
   @override

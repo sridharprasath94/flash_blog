@@ -14,6 +14,7 @@ _BlogModel _$BlogModelFromJson(Map<String, dynamic> json) => _BlogModel(
   imageUrl: json['image_url'] as String,
   topics: (json['topics'] as List<dynamic>).map((e) => e as String).toList(),
   updatedAt: DateTime.parse(json['updated_at'] as String),
+  posterName: json['poster_name'] as String?,
 );
 
 Map<String, dynamic> _$BlogModelToJson(_BlogModel instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$BlogModelToJson(_BlogModel instance) =>
       'image_url': instance.imageUrl,
       'topics': instance.topics,
       'updated_at': instance.updatedAt.toIso8601String(),
+      'poster_name': instance.posterName,
     };
