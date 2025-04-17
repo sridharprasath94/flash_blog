@@ -57,7 +57,6 @@ class BlogHomeControllerImpl extends _$BlogHomeControllerImpl
 
   @override
   void onTapDeleteBlogCard(final Blog blog) {
-    blogBloc..add(BlogEvent.deleteBlog(posterId: blog.id))
-    ..add(const BlogEvent.fetchAllBlogs());
+    blogBloc.add(BlogEvent.deleteBlog(posterId: blog.id));
   }
 }

@@ -72,20 +72,16 @@ class BlogHomeView extends StatelessWidget {
               if (state is blog.Failure) {
                 showSnackBar(context, state.message);
               }
-
-              if (state is blog.DeleteSuccess) {
-                showSnackBar(context, 'Blog deleted successfully');
-              }
             },
-            builder: (final BuildContext context, final blog.BlogState state) {
-              if (state is blog.Loading) {
+            builder: (final BuildContext context, final blog.BlogState blogState) {
+              if (blogState is blog.Loading) {
                 return const Loader();
               }
-              if (state is blog.FetchSuccess) {
+              if (blogState is blog.FetchSuccess) {
                 return ListView.builder(
-                  itemCount: state.blogs.length,
+                  itemCount: blogState.blogs.length,
                   itemBuilder: (final BuildContext context, final int index) {
-                    final Blog blog = state.blogs[index];
+                    final Blog blog = blogState.blogs[index];
                     return BlogCard(
                       blog: blog,
                       color:

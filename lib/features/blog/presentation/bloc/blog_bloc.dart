@@ -7,6 +7,7 @@ import 'package:flash_blog/features/blog/domain/usecases/delete_blog.dart';
 import 'package:flash_blog/features/blog/domain/usecases/get_all_blogs.dart';
 import 'package:flash_blog/features/blog/domain/usecases/upload_blog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part '../../../../generated/features/blog/presentation/bloc/blog_bloc.freezed.dart';
@@ -81,15 +82,11 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
     final _DeleteBlog event,
     final Emitter<BlogState> emit,
   ) async {
-    await _deleteBlog(event.posterId)
-        .match(
-          (final failures.Failure failure) {
-            emit(Failure(failure.message));
-          },
-          (_) {
-            emit(const DeleteSuccess());
-          },
-        )
-        .run();
+    final Either<failures.Failure, Unit> result =
+        await _deleteBlog(event.posterId).run();
+
+    await result.match((final failures.Failure failure) async {
+      emit(Failure(failure.message));
+    }, (_) => _onFetchAllBlogs(const _FetchAllBlogs(), emit));
   }
 }

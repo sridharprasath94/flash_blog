@@ -516,36 +516,4 @@ as List<Blog>,
 
 }
 
-/// @nodoc
-
-
-class DeleteSuccess implements BlogState {
-  const DeleteSuccess();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteSuccess);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'BlogState.deleteSuccess()';
-}
-
-
-}
-
-
-
-
 // dart format on
