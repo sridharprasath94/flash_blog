@@ -1,6 +1,12 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flash_blog/core/utils/pick_image.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_model.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_navigation_service.dart';
 import 'package:flash_blog/features/blog/presentation/pages/add_new_blog/add_new_blog_view.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part '../../../../../generated/features/blog/presentation/pages/add_new_blog/add_new_blog_controller.g.dart';
@@ -13,12 +19,18 @@ class AddNewBlogControllerImpl extends _$AddNewBlogControllerImpl
     required final AddNewBlogNavigationService navigationService,
   }) {
     ref.onDispose(dispose);
-    return const AddNewBlogModel(
+    return AddNewBlogModel(
       isLoading: false,
+      titleController: TextEditingController(),
+      contentController: TextEditingController(),
+      selectedTopics: const <String>[],
+      image: const None(),
     );
   }
 
   void dispose() {
+    state.titleController.dispose();
+    state.contentController.dispose();
   }
 
   @override
@@ -29,5 +41,34 @@ class AddNewBlogControllerImpl extends _$AddNewBlogControllerImpl
   @override
   void tapUploadButton() {
     // TODO: implement tapUploadButton
+  }
+
+  @override
+  void onSelectTopic(final String topic) {
+    final List<String> topics = state.selectedTopics;
+    final List<String> updated =
+        topics.contains(topic)
+            ? topics.where((final String t) => t != topic).toList()
+            : <String>[...topics, topic];
+
+    state = state.copyWith(selectedTopics: updated);
+    debugPrint('Selected topics: $updated');
+  }
+
+  @override
+  void onSelectImage() {
+    unawaited(
+      pickImage()
+          .match(
+            (final Exception error) {
+              debugPrint('Error selecting image: $error');
+            },
+            (final File image) {
+              debugPrint('Image selected: $image');
+              state = state.copyWith(image: Some<File>(image));
+            },
+          )
+          .run(),
+    );
   }
 }
