@@ -89,7 +89,7 @@ class BlogHomeView extends StatelessWidget {
                               ? AppPalette.gradient1
                               : AppPalette.gradient2,
                       onTap: () => controller.onTapBlogCard(blog),
-                      onLongPress: () => controller.onTapDeleteBlogCard(blog),
+                      onTapDeleteIcon: () => controller.onTapDeleteBlogCard(blog),
                     );
                   },
                 );
