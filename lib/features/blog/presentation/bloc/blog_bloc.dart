@@ -87,6 +87,7 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
 
     await result.match((final failures.Failure failure) async {
       emit(Failure(failure.message));
+      // ignore: require_trailing_commas
     }, (_) => _onFetchAllBlogs(const _FetchAllBlogs(), emit));
   }
 }

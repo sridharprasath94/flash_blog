@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flash_blog/core/error/failures.dart';
+import 'package:flash_blog/core/network/connection_checker.dart';
 import 'package:flash_blog/features/blog/data/data_sources/blog_remote_data_source.dart';
 import 'package:flash_blog/features/blog/data/models/blog_model.dart';
 import 'package:flash_blog/features/blog/domain/entities/blog.dart';
@@ -11,8 +12,9 @@ import 'package:uuid/uuid.dart';
 
 class BlogRepositoryImpl implements BlogRepository {
   final BlogRemoteDataSource blogRemoteDataSource;
+  final ConnectionChecker connectionChecker;
 
-  BlogRepositoryImpl(this.blogRemoteDataSource);
+  BlogRepositoryImpl(this.blogRemoteDataSource, this.connectionChecker);
 
   @override
   TaskEither<Failure, Blog> uploadBlog({
@@ -67,5 +69,6 @@ class BlogRepositoryImpl implements BlogRepository {
       TaskEither<Failure, Unit>.tryCatch(() async {
         await blogRemoteDataSource.deleteBlog(posterId);
         return unit;
+        // ignore: require_trailing_commas
       }, (final Object error, _) => Failure(error.toString()));
 }
