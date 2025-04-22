@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flash_blog/core/error/failures.dart';
 import 'package:flash_blog/core/network/connection_checker.dart';
+import 'package:flash_blog/features/blog/data/data_sources/blog_local_data_source.dart';
 import 'package:flash_blog/features/blog/data/data_sources/blog_remote_data_source.dart';
 import 'package:flash_blog/features/blog/data/models/blog_model.dart';
 import 'package:flash_blog/features/blog/domain/entities/blog.dart';
@@ -12,9 +13,14 @@ import 'package:uuid/uuid.dart';
 
 class BlogRepositoryImpl implements BlogRepository {
   final BlogRemoteDataSource blogRemoteDataSource;
+  final BlogLocalDataSource blogLocalDataSource;
   final ConnectionChecker connectionChecker;
 
-  BlogRepositoryImpl(this.blogRemoteDataSource, this.connectionChecker);
+  BlogRepositoryImpl(
+    this.blogRemoteDataSource,
+    this.blogLocalDataSource,
+    this.connectionChecker,
+  );
 
   @override
   TaskEither<Failure, Blog> uploadBlog({
@@ -25,6 +31,10 @@ class BlogRepositoryImpl implements BlogRepository {
     required final List<String> topics,
   }) => TaskEither<Failure, Blog>.tryCatch(
     () async {
+      if (!await connectionChecker.isConnected) {
+        debugPrint('No internet connection');
+        throw Exception('No internet connection');
+      }
       BlogModel blogModel = BlogModel(
         id: const Uuid().v1(),
         posterId: posterId,
@@ -59,7 +69,12 @@ class BlogRepositoryImpl implements BlogRepository {
   @override
   TaskEither<Failure, List<Blog>> getAllBlogs() =>
       TaskEither<Failure, List<Blog>>.tryCatch(() async {
+        if (!await connectionChecker.isConnected) {
+          final List<BlogModel> blogs = blogLocalDataSource.loadBlogs();
+          return blogs;
+        }
         final List<BlogModel> blogs = await blogRemoteDataSource.getAllBlogs();
+        blogLocalDataSource.uploadLocalBlogs(blogs: blogs);
         return blogs;
         // ignore: require_trailing_commas
       }, (final Object error, _) => Failure(error.toString()));
